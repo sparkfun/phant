@@ -1,7 +1,7 @@
 {
   "name": "phant",
   "version": "0.0.1",
-  "main": "lib/phant.js",
+  "main": "app.js",
   "description": "never forget.",
   "homepage": "https://github.com/sparkfun/phant",
   "bugs": "https://github.com/sparkfun/phant/issues",
