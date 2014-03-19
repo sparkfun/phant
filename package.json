@@ -19,7 +19,7 @@
       "type": "GPL v3"
     }
   ],
-  "keywords":[
+  "keywords": [
     "data"
   ],
   "engines": {
@@ -35,5 +35,10 @@
   },
   "scripts": {
     "test": "grunt"
+  },
+  "dependencies": {
+    "phant-keychain-hex": "0.0.1",
+    "phant-storage-mongodb": "0.0.1",
+    "phant-manager-http": "0.0.2"
   }
 }
