@@ -1,6 +1,6 @@
 {
   "name": "phant",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "app.js",
   "description": "never forget.",
   "homepage": "https://github.com/sparkfun/phant",
@@ -20,7 +20,7 @@
     }
   ],
   "keywords": [
-    "data"
+    "phant","sparkfun", "data"
   ],
   "engines": {
     "node": "^0.10.26"
@@ -39,6 +39,6 @@
   "dependencies": {
     "phant-keychain-hex": "0.0.1",
     "phant-storage-mongodb": "0.0.2",
-    "phant-manager-http": "0.0.5"
+    "phant-manager-http": "0.0.6"
   }
 }
