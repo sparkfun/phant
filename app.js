@@ -5,20 +5,20 @@ var Phant = require('./lib/phant'),
     app = Phant();
 
 var keys = keychain({
-  publicSalt: process.env.PUBLIC_SALT,
-  privateSalt: process.env.PRIVATE_SALT
+  publicSalt: process.env.PUBLIC_SALT || 'public salt',
+  privateSalt: process.env.PRIVATE_SALT || 'private salt'
 });
 
 var mongo = storage({
-  url: process.env.MONGOHQ_URL,
-  cap: process.env.CAP
+  url: process.env.MONGO_URL || 'mongodb://localhost/phant',
+  cap: process.env.CAP || false
 });
 
 app.registerManager(
   manager({
     storage: mongo,
     keychain: keys,
-    port: process.env.PORT
+    port: process.env.PORT || 3000
   })
 );
 
