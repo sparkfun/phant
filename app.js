@@ -1,4 +1,5 @@
 var Phant = require('./lib/phant'),
+    dotenv = require('dotenv').load(),
     manager = require('phant-manager-http'),
     keychain = require('phant-keychain-hex'),
     storage = require('phant-storage-mongodb'),
@@ -18,7 +19,7 @@ app.registerManager(
   manager({
     storage: mongo,
     keychain: keys,
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 5000
   })
 );
 
