@@ -3,6 +3,7 @@ var Phant = require('./lib/phant'),
     httpServer = require('phant-http-server'),
     HttpInput = require('phant-input-http'),
     HttpManager = require('phant-manager-http'),
+    HttpOutput = require('phant-output-http'),
     keychain = require('phant-keychain-hex'),
     storage = require('phant-storage-mongodb'),
     app = Phant();
@@ -15,6 +16,11 @@ var keys = keychain({
 var mongo = storage({
   url: process.env.MONGO_URL || 'mongodb://localhost/phant',
   cap: process.env.CAP || false
+});
+
+var httpOutput = HttpOutput({
+  storage: mongo,
+  keychain: keys
 });
 
 var httpInput = HttpInput({
@@ -33,6 +39,9 @@ httpServer.listen(process.env.PORT || 5000);
 // attach input to http server
 httpServer.use(httpInput);
 
+// attach output to http server
+httpServer.use(httpOutput);
+
 // register input with phant
 app.registerInput(httpInput);
 
@@ -43,5 +52,6 @@ httpServer.use(httpManager);
 app.registerManager(httpManager);
 
 app.registerOutput(mongo);
+app.registerOutput(httpOutput);
 
 exports = module.exports = app;
