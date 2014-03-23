@@ -42,4 +42,6 @@ httpServer.use(httpManager);
 // register manager with phant
 app.registerManager(httpManager);
 
+app.registerOutput(mongo);
+
 exports = module.exports = app;
