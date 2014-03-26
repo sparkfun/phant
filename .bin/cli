@@ -1,0 +1,98 @@
+#!/usr/bin/env node
+
+var prompt = require('prompt'),
+    path = require('path'),
+    keychain = require('phant-keychain-hex'),
+    storage = require('phant-storage-json'),
+    dotenv = require('dotenv').load(),
+    colors = require('colors'),
+    ip = require('ip');
+
+var json = storage({
+  directory: path.join(__dirname, '..', 'tmp')
+});
+
+var keys = keychain({
+  publicSalt: process.env.PUBLIC_SALT || 'public salt',
+  privateSalt: process.env.PRIVATE_SALT || 'private salt'
+});
+
+prompt.message = 'phant';
+
+var port = process.env.PORT || 8080;
+
+var schema = {
+
+  properties: {
+    title: {
+      description: 'Enter a feed title',
+      type: 'string',
+      message: 'You must enter a title',
+      required: true
+    },
+    description: {
+      description: 'Enter a description',
+      type: 'string',
+      message: 'You must enter a description',
+      required: true
+    },
+    fields: {
+      type: 'string',
+      description: 'Fields (comma separated)',
+      required: true
+    },
+    tags: {
+      type: 'string',
+      description: 'Tags (comma separated)'
+    }
+  }
+
+};
+
+prompt.start();
+
+prompt.get(schema, function (err, result) {
+
+  var blacklist = ['_id', 'private_key'],
+        fields = [],
+        tags = [];
+
+  if(result.tags.trim())
+    tags = result.tags.trim().split(', ');
+
+  if(result.fields.trim())
+    fields = result.fields.trim().split(', ');
+
+  for(var i=0; i < result.fields.length; i++) {
+
+    if(blacklist.indexOf(result.fields[i]) !== -1) {
+      console.log('sorry, but ' + result.fields[i] + 'is an invalid field name.');
+      return;
+    }
+
+  }
+
+  json.create({
+    title: result.description,
+    description: result.description,
+    fields: fields,
+    tags: tags
+  }, function(err, stream) {
+
+    if (err) {
+      console.log('creating  stream failed: ' + err);
+      return;
+    }
+
+    console.log('');
+    console.log('PUBLIC KEY'.underline + ':  ' + keys.publicKey(stream.id) + "\n");
+    console.log('PRIVATE KEY'.underline + ':  ' + keys.privateKey(stream.id) + "\n");
+
+    var url = 'http://' + ip.address() + ':' + port + '/';
+
+    console.log('DATA STREAM'.underline + ':  ' + url + 'output/' + keys.publicKey(stream.id) + '.json' + "\n");
+    console.log('LOGGING URL'.underline + ':  ' + url + 'input/' + keys.publicKey(stream.id) + '?private_key=' + keys.privateKey(stream.id) + "\n");
+    console.log('');
+  });
+
+});
