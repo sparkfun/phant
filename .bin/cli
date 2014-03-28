@@ -9,7 +9,7 @@ var prompt = require('prompt'),
     ip = require('ip');
 
 var json = storage({
-  directory: path.join(__dirname, '..', 'tmp')
+  directory: 'tmp'
 });
 
 var keys = keychain({

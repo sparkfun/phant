@@ -14,7 +14,7 @@ var keys = keychain({
 });
 
 var json = storage({
-  directory: path.join(__dirname, 'tmp')
+  directory: 'tmp'
 });
 
 var httpOutput = HttpOutput({
