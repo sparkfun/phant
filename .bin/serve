@@ -34,8 +34,7 @@ var httpOutput = HttpOutput({
 });
 
 var validator = Validator({
-  metadata: json,
-  keychain: keys
+  metadata: json
 });
 
 var httpInput = HttpInput({
