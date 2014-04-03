@@ -1,23 +1,60 @@
 #!/usr/bin/env node
-
-var cluster = require('cluster'),
+#
+var Phant = require('../lib/phant'),
+    dotenv = require('dotenv').load(),
     path = require('path'),
-    CPUs = require('os').cpus().length;
+    httpServer = require('phant-http-server'),
+    HttpInput = require('phant-input-http'),
+    HttpOutput = require('phant-output-http'),
+    Keychain = require('phant-keychain-hex'),
+    Meta = require('phant-meta-json'),
+    Validator = require('phant-validator'),
+    Storage = require('phant-stream-json'),
+    app = Phant();
 
-cluster.setupMaster({
-  exec: path.join(__dirname, '..', 'app.js'),
-  silent: true
+var keys = Keychain({
+  publicSalt: process.env.PUBLIC_SALT || 'public salt',
+  privateSalt: process.env.PRIVATE_SALT || 'private salt'
 });
 
-for (var i = 0; i < CPUs; i++) {
-  cluster.fork();
-}
-
-cluster.on('online', function(worker) {
-  console.log('phant worker #' + worker.process.pid + ' online');
+var json = Meta({
+  directory: process.env.PHANT_STORAGEDIR || 'tmp'
 });
 
-cluster.on('exit', function(worker, code, signal) {
-  console.log('phant worker #' + worker.process.pid + ' died');
+var stream = Storage({
+  directory: process.env.PHANT_STORAGEDIR || 'tmp',
+  cap: process.env.PHANT_CAP || 2 * 1024 * 1024 * 1024, // 2gb
+  chunk: process.env.PHANT_CHUNK || 500 * 1024 // 500k
 });
+
+var httpOutput = HttpOutput({
+  metadata: json,
+  storage: stream,
+  keychain: keys
+});
+
+var validator = Validator({
+  metadata: json,
+  keychain: keys
+});
+
+var httpInput = HttpInput({
+  validator: vaidator,
+  keychain: keys
+});
+
+// start listening for connections
+httpServer.listen(process.env.PHANT_PORT || 8080);
+
+// attach input to http server
+httpServer.use(httpInput);
+
+// attach output to http server
+httpServer.use(httpOutput);
+
+// register input with phant
+app.registerInput(httpInput);
+
+app.registerOutput(json);
+app.registerOutput(httpOutput);
 
