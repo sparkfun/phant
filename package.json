@@ -1,7 +1,7 @@
 {
   "name": "phant",
   "version": "0.0.22",
-  "main": "app.js",
+  "main": "lib/phant.js",
   "description": "never forget.",
   "homepage": "https://github.com/sparkfun/phant",
   "bugs": "https://github.com/sparkfun/phant/issues",
@@ -48,7 +48,7 @@
     "phant-input-http": "0.0.10",
     "phant-http-server": "0.0.4",
     "phant-output-http": "0.0.1",
-    "phant-storage-json": "0.0.2",
+    "phant-meta-json": "1.0.0",
     "dotenv": "^0.2.5",
     "ip": "^0.3.0",
     "prompt": "^0.2.12",
