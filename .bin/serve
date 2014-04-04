@@ -27,13 +27,14 @@ var stream = Storage({
   chunk: process.env.PHANT_CHUNK || 500 * 1024 // 500k
 });
 
-var httpOutput = HttpOutput({
-  storage: stream,
-  keychain: keys
+var validator = Validator({
+  metadata: mongo
 });
 
-var validator = Validator({
-  metadata: json
+var httpOutput = HttpOutput({
+  validator: validator,
+  storage: stream,
+  keychain: keys
 });
 
 var httpInput = HttpInput({
