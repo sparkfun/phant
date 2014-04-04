@@ -7,7 +7,7 @@
   "noarg": true,
   "sub": true,
   "undef": true,
-  "unused": true,
+  "unused": "var",
   "boss": true,
   "eqnull": true,
   "node": true

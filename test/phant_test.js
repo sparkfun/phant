@@ -1,6 +1,6 @@
 'use strict';
 
-var phant = require('../lib/phant.js'),
+var phant = require('../index.js'),
     events = require('events');
 
 exports.phant = {
