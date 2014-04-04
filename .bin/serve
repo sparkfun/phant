@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var Phant = require('../lib/phant'),
+var Phant = require('../index'),
     dotenv = require('dotenv').load(),
     path = require('path'),
     Keychain = require('phant-keychain-hex'),
