@@ -3,23 +3,23 @@
 var prompt = require('prompt'),
     path = require('path'),
     keychain = require('phant-keychain-hex'),
-    storage = require('phant-storage-json'),
+    Meta = require('phant-meta-json'),
     dotenv = require('dotenv').load(),
     colors = require('colors'),
     ip = require('ip');
 
-var json = storage({
-  directory: 'tmp'
+var json = Meta({
+  directory: process.env.PHANT_STORAGEDIR || 'tmp'
 });
 
 var keys = keychain({
-  publicSalt: process.env.PUBLIC_SALT || 'public salt',
-  privateSalt: process.env.PRIVATE_SALT || 'private salt'
+  publicSalt: process.env.PHANT_PUBLIC_SALT || 'public salt',
+  privateSalt: process.env.PHANT_PRIVATE_SALT || 'private salt'
 });
 
 prompt.message = 'phant';
 
-var port = process.env.PORT || 8080;
+var port = process.env.PHANT_PORT || 8080;
 
 var schema = {
 

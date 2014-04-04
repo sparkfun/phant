@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-#
+
 var Phant = require('../lib/phant'),
     dotenv = require('dotenv').load(),
     path = require('path'),
@@ -13,8 +13,8 @@ var Phant = require('../lib/phant'),
     app = Phant();
 
 var keys = Keychain({
-  publicSalt: process.env.PUBLIC_SALT || 'public salt',
-  privateSalt: process.env.PRIVATE_SALT || 'private salt'
+  publicSalt: process.env.PHANT_PUBLIC_SALT || 'public salt',
+  privateSalt: process.env.PHANT_PRIVATE_SALT || 'private salt'
 });
 
 var json = Meta({
@@ -28,7 +28,6 @@ var stream = Storage({
 });
 
 var httpOutput = HttpOutput({
-  metadata: json,
   storage: stream,
   keychain: keys
 });
@@ -38,7 +37,7 @@ var validator = Validator({
 });
 
 var httpInput = HttpInput({
-  validator: vaidator,
+  validator: validator,
   keychain: keys
 });
 
@@ -54,6 +53,6 @@ httpServer.use(httpOutput);
 // register input with phant
 app.registerInput(httpInput);
 
-app.registerOutput(json);
+app.registerOutput(stream);
 app.registerOutput(httpOutput);
 
