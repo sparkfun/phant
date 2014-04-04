@@ -24,7 +24,7 @@ var stream = Storage({
 });
 
 var validator = Phant.Validator({
-  metadata: mongo
+  metadata: json
 });
 
 var httpOutput = Phant.HttpOutput({
