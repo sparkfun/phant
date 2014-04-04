@@ -1,7 +1,7 @@
 {
   "name": "phant",
   "version": "1.1.0",
-  "main": "lib/phant.js",
+  "main": "index.js",
   "description": "never forget.",
   "homepage": "https://github.com/sparkfun/phant",
   "bugs": "https://github.com/sparkfun/phant/issues",
@@ -49,11 +49,9 @@
     "prompt": "^0.2.12",
     "colors": "^0.6.2",
     "phant-keychain-hex": "^0.1.2",
-    "phant-validator": "^1.1.0",
     "phant-stream-json": "0.0.3",
     "phant-meta-json": "^1.0.2",
     "phant-output-http": "^1.0.4",
-    "phant-input-http": "^1.0.1",
-    "phant-http-server": "0.0.4"
+    "phant-input-http": "^1.0.1"
   }
 }
