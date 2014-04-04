@@ -52,6 +52,10 @@
     "phant-stream-json": "0.0.3",
     "phant-meta-json": "^1.0.2",
     "phant-output-http": "^1.0.4",
-    "phant-input-http": "^1.0.1"
+    "phant-input-http": "^1.0.1",
+    "lodash": "^2.4.1",
+    "method-override": "^1.0.0",
+    "body-parser": "^1.0.1",
+    "express": "^3.5.1"
   }
 }
