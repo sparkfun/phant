@@ -54,6 +54,7 @@
     "lodash": "^2.4.1",
     "method-override": "^1.0.0",
     "body-parser": "^1.0.1",
-    "express": "^3.5.1"
+    "express": "^3.5.1",
+    "JSONStream": "^0.8.0"
   }
 }
