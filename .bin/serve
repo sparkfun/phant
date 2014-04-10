@@ -5,15 +5,16 @@ var Phant = require('../index'),
     path = require('path'),
     Keychain = require('phant-keychain-hex'),
     Meta = require('phant-meta-json'),
-    Storage = require('phant-stream-json'),
-    app = Phant();
+    Storage = require('phant-stream-csv'),
+    app = Phant()
+    port = process.env.PHANT_PORT || 8080;
 
 var keys = Keychain({
   publicSalt: process.env.PHANT_PUBLIC_SALT || 'public salt',
   privateSalt: process.env.PHANT_PRIVATE_SALT || 'private salt'
 });
 
-var json = Meta({
+var csv = Meta({
   directory: process.env.PHANT_STORAGEDIR || 'tmp'
 });
 
@@ -24,7 +25,7 @@ var stream = Storage({
 });
 
 var validator = Phant.Validator({
-  metadata: json
+  metadata: csv
 });
 
 var httpOutput = Phant.HttpOutput({
@@ -39,7 +40,7 @@ var httpInput = Phant.HttpInput({
 });
 
 // start listening for connections
-Phant.HttpServer.listen(process.env.PHANT_PORT || 8080);
+Phant.HttpServer.listen(port);
 
 // attach input to http server
 Phant.HttpServer.use(httpInput);
@@ -52,4 +53,6 @@ app.registerInput(httpInput);
 
 app.registerOutput(stream);
 app.registerOutput(httpOutput);
+
+console.log('phant running on port ' + port);
 
