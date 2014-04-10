@@ -1,6 +1,6 @@
 {
   "name": "phant",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "main": "index.js",
   "description": "never forget.",
   "homepage": "https://github.com/sparkfun/phant",
@@ -49,7 +49,7 @@
     "prompt": "^0.2.12",
     "colors": "^0.6.2",
     "phant-keychain-hex": "^0.1.2",
-    "phant-stream-csv": "1.1.0",
+    "phant-stream-csv": "1.2.0",
     "phant-meta-json": "^1.0.2",
     "lodash": "^2.4.1",
     "method-override": "^1.0.0",
