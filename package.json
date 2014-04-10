@@ -55,6 +55,7 @@
     "method-override": "^1.0.0",
     "body-parser": "^1.0.1",
     "express": "^3.5.1",
-    "JSONStream": "^0.8.0"
+    "JSONStream": "^0.8.0",
+    "csv-write-stream": "^0.1.1"
   }
 }
