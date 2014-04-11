@@ -18,10 +18,11 @@ var app = Phant.prototype;
 exports = module.exports = Phant;
 
 /**** Expose Submodules ****/
-Phant.HttpServer = require('./lib/http_server');
-Phant.HttpInput  = require('./lib/http_input');
-Phant.HttpOutput = require('./lib/http_output');
-Phant.Validator  = require('./lib/validator');
+Phant.HttpServer    = require('./lib/http_server');
+Phant.HttpInput     = require('./lib/http_input');
+Phant.HttpOutput    = require('./lib/http_output');
+Phant.Validator     = require('./lib/validator');
+Phant.TelnetManager = require('./lib/telnet_manager');
 
 /**** Initialize a new Phant ****/
 function Phant() {
