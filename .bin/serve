@@ -14,7 +14,7 @@ var keys = Keychain({
   privateSalt: process.env.PHANT_PRIVATE_SALT || 'private salt'
 });
 
-var csv = Meta({
+var meta = Meta({
   directory: process.env.PHANT_STORAGEDIR || 'tmp'
 });
 
@@ -25,7 +25,7 @@ var stream = Storage({
 });
 
 var validator = Phant.Validator({
-  metadata: csv
+  metadata: meta
 });
 
 var httpOutput = Phant.HttpOutput({
@@ -54,5 +54,13 @@ app.registerInput(httpInput);
 app.registerOutput(stream);
 app.registerOutput(httpOutput);
 
-console.log('phant running on port ' + port);
+// register manager with phant
+app.registerManager(
+  Phant.TelnetManager(process.env.PHANT_TELNET_PORT || 8001, {
+    metadata: meta,
+    keychain: keys
+  })
+);
 
+console.log('phant http server running on port ' + port);
+console.log('phant telnet server running on port ' + (process.env.PHANT_TELNET_PORT || 8001));
