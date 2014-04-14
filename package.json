@@ -28,8 +28,7 @@
     "node": "^0.10.26"
   },
   "bin": {
-    "phant": ".bin/cli",
-    "phant-server": ".bin/serve"
+    "phant": ".bin/serve"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.7.0",
