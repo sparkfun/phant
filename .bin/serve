@@ -7,7 +7,8 @@ var Phant = require('../index'),
     Meta = require('phant-meta-json'),
     Storage = require('phant-stream-csv'),
     app = Phant()
-    port = process.env.PHANT_PORT || 8080;
+    http_port = process.env.PHANT_PORT || 8080,
+    telnet_port = process.env.PHANT_PORT || 8081;
 
 var keys = Keychain({
   publicSalt: process.env.PHANT_PUBLIC_SALT || 'public salt',
@@ -40,7 +41,7 @@ var httpInput = Phant.HttpInput({
 });
 
 // start listening for connections
-Phant.HttpServer.listen(port);
+Phant.HttpServer.listen(http_port);
 
 // attach input to http server
 Phant.HttpServer.use(httpInput);
@@ -56,11 +57,11 @@ app.registerOutput(httpOutput);
 
 // register manager with phant
 app.registerManager(
-  Phant.TelnetManager(process.env.PHANT_TELNET_PORT || 8001, {
+  Phant.TelnetManager(telnet_port, {
     metadata: meta,
     keychain: keys
   })
 );
 
-console.log('phant http server running on port ' + port);
-console.log('phant telnet server running on port ' + (process.env.PHANT_TELNET_PORT || 8001));
+console.log('phant http server running on port ' + http_port);
+console.log('phant telnet server running on port ' + telnet_port);
