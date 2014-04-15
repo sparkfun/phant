@@ -45,7 +45,6 @@ Phant.prototype.__proto__ = events.EventEmitter.prototype;
 /**** Log errors to console ****/
 app.handleError = function() {
 
-  // TODO: logging levels
   console.error.apply(console, arguments);
 
 };
