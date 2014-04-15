@@ -45,7 +45,6 @@
   "dependencies": {
     "dotenv": "^0.2.5",
     "ip": "^0.3.0",
-    "prompt": "^0.2.12",
     "colors": "^0.6.2",
     "phant-keychain-hex": "^0.1.2",
     "phant-stream-csv": "1.2.0",
