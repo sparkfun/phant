@@ -43,32 +43,37 @@ var httpInput = Phant.HttpInput({
 // start listening for connections
 Phant.HttpServer.listen(http_port);
 
+// handle 404s
+Phant.HttpServer.use(function(req, res) {
+
+  if(res.headerSent) {
+    return;
+  }
+
+  if(req.url.match(/^\/input\//)) {
+    return;
+  }
+
+  if(req.url.match(/^\/output\//)) {
+    return;
+  }
+
+  var body = 'phant http manager not enabled on this server\n';
+
+  res.writeHead(404, {
+    'Content-Type': 'text/plain',
+    'Content-Length': body.length
+  });
+
+  res.end(body);
+
+});
+
 // attach input to http server
 Phant.HttpServer.use(httpInput);
 
 // attach output to http server
 Phant.HttpServer.use(httpOutput);
-
-// handle 404s
-Phant.HttpServer.use(function(req, res) {
-
-  if(res.headerSent) {
-    return function(req, res) { return; };
-  }
-
-  if(req.url.match(/^\/input\//)) {
-    return function(req, res) { return; };
-  }
-
-  if(req.url.match(/^\/output\//)) {
-    return function(req, res) { return; };
-  }
-
-  return function(req, res) {
-    res.send('http manager not enabled on this server');
-  };
-
-};
 
 // register input with phant
 app.registerInput(httpInput);
