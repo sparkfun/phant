@@ -77,6 +77,10 @@ app.registerInput = function(input) {
   // listen for data, and pipe it to outputs
   input.on('data', this.dataReceived.bind(this));
 
+  // listen for clear events and tell the outputs
+  // to wipe data if they are storing it
+  input.on('clear', this.clearStream.bind(this));
+
   // pipe input errors to phant error handler
   input.on('error', this.handleError.bind(
     this,
@@ -118,5 +122,21 @@ app.dataReceived = function(id, data) {
   this.outputs.forEach(function(output) {
     output.write(id, data);
   });
+
+};
+
+/**
+ * clearStream
+ *
+ * wipe the data from all persistent stores
+ */
+app.clearStream = function(id) {
+
+  // loop through all outputs and give
+  // them the new data.
+  this.outputs.forEach(function(output) {
+    output.clear(id);
+  });
+
 
 };
