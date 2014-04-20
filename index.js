@@ -138,5 +138,4 @@ app.clearStream = function(id) {
     output.clear(id);
   });
 
-
 };
