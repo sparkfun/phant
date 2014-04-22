@@ -23,6 +23,7 @@ Phant.HttpInput     = require('./lib/http_input');
 Phant.HttpOutput    = require('./lib/http_output');
 Phant.Validator     = require('./lib/validator');
 Phant.TelnetManager = require('./lib/telnet_manager');
+Phant.MemoryThrottler = require('./lib/memory_throttler');
 
 /**** Initialize a new Phant ****/
 function Phant() {

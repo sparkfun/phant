@@ -36,6 +36,7 @@ var httpOutput = Phant.HttpOutput({
 });
 
 var httpInput = Phant.HttpInput({
+  throttler: Phant.MemoryThrottler(),
   validator: validator,
   keychain: keys
 });
