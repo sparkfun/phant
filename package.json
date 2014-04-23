@@ -55,6 +55,7 @@
     "express": "^3.5.1",
     "JSONStream": "^0.8.0",
     "csv-write-stream": "^0.1.1",
-    "wez-telnet": "^0.1.1"
+    "wez-telnet": "^0.1.1",
+    "async": "~0.7.0"
   }
 }
