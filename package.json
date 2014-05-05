@@ -30,14 +30,6 @@
   "bin": {
     "phant": ".bin/serve"
   },
-  "devDependencies": {
-    "grunt-contrib-jshint": "~0.7.0",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-watch": "~0.5.0",
-    "load-grunt-tasks": "~0.2.0",
-    "time-grunt": "~0.2.0",
-    "jshint-stylish": "~0.1.3"
-  },
   "scripts": {
     "start": ".bin/serve",
     "test": "grunt"
@@ -45,11 +37,6 @@
   "dependencies": {
     "dotenv": "^0.2.5",
     "ip": "^0.3.0",
-    "colors": "^0.6.2",
-    "phant-keychain-hex": "^0.2.1",
-    "phant-stream-csv": "1.3.3",
-    "phant-meta-json": "^1.1.0",
-    "lodash": "^2.4.1",
     "method-override": "^1.0.0",
     "body-parser": "^1.0.1",
     "express": "^3.5.1",
@@ -57,5 +44,18 @@
     "csv-write-stream": "^0.1.1",
     "wez-telnet": "^0.1.1",
     "async": "~0.7.0"
+  },
+  "optionalDependencies": {
+    "phant-keychain-hex": "^0.2.1",
+    "phant-stream-csv": "1.3.3",
+    "phant-meta-json": "^1.1.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "load-grunt-tasks": "~0.2.0",
+    "time-grunt": "~0.2.0",
+    "jshint-stylish": "~0.1.3"
   }
 }
