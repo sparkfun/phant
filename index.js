@@ -54,8 +54,7 @@ app.handleError = function() {
 /**
  * registerManager
  *
- * adds a new manager to the list of
- * managers
+ * adds a new manager to the list of managers
  */
 app.registerManager = function(manager) {
 
@@ -123,6 +122,12 @@ app.dataReceived = function(id, data) {
   // them the new data.
   this.outputs.forEach(function(output) {
     output.write(id, data);
+  });
+
+  // let the managers know data was received
+  // so they can update the last_push timestamp
+  this.managers.forEach(function(manager) {
+    manager.touch(id);
   });
 
 };
