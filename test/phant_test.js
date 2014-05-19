@@ -1,7 +1,7 @@
 'use strict';
 
 var phant = require('../index.js'),
-    events = require('events');
+  events = require('events');
 
 exports.phant = {
   setUp: function(done) {
