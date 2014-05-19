@@ -18,26 +18,26 @@ var app = Phant.prototype;
 exports = module.exports = Phant;
 
 /**** Expose Submodules ****/
-Phant.HttpServer      = require('./lib/http_server');
-Phant.HttpsServer     = require('./lib/https_server');
-Phant.HttpInput       = require('./lib/http_input');
-Phant.HttpOutput      = require('./lib/http_output');
-Phant.Validator       = require('./lib/validator');
-Phant.TelnetManager   = require('./lib/telnet_manager');
+Phant.HttpServer = require('./lib/http_server');
+Phant.HttpsServer = require('./lib/https_server');
+Phant.HttpInput = require('./lib/http_input');
+Phant.HttpOutput = require('./lib/http_output');
+Phant.Validator = require('./lib/validator');
+Phant.TelnetManager = require('./lib/telnet_manager');
 Phant.MemoryThrottler = require('./lib/memory_throttler');
 
 /**** Initialize a new Phant ****/
 function Phant() {
 
-  if (! (this instanceof Phant)) {
+  if (!(this instanceof Phant)) {
     return new Phant();
   }
 
   this.on('error', this.handleError);
 
   this.managers = [];
-  this.inputs   = [];
-  this.outputs  = [];
+  this.inputs = [];
+  this.outputs = [];
 
 }
 

@@ -84,7 +84,8 @@ app.registerOutput(httpOutput);
 
 // register manager with phant
 app.registerManager(
-  Phant.TelnetManager(telnet_port, {
+  Phant.TelnetManager({
+    port: telnet_port,
     metadata: meta,
     keychain: keys
   })
