@@ -6,12 +6,13 @@ var Phant = require('../index'),
   Meta = require('phant-meta-json'),
   Storage = require('phant-stream-csv'),
   rimraf = require('rimraf'),
+  request = require('request'),
   app = Phant(),
-  http_port = process.env.PHANT_PORT || 8080;
+  http_port = 8080;
 
 var keys = Keychain({
-  publicSalt: process.env.PHANT_PUBLIC_SALT || 'public salt',
-  privateSalt: process.env.PHANT_PRIVATE_SALT || 'private salt'
+  publicSalt: 'public salt',
+  privateSalt: 'private salt'
 });
 
 var meta = Meta({
@@ -40,7 +41,7 @@ Phant.HttpServer.use(httpInput);
 app.registerInput(httpInput);
 app.registerOutput(stream);
 
-exports.phant = {
+exports.input = {
 
   setUp: function(done) {
 
@@ -59,7 +60,6 @@ exports.phant = {
       if (err) {
         console.log('test set up failed: ' + err);
         process.exit(1);
-        return done();
       }
 
       self.stream = stream;
@@ -68,11 +68,34 @@ exports.phant = {
 
     });
 
+    console.log('fuck');
   },
 
   tearDown: function(done) {
     rimraf.sync('tmp');
     done();
+  },
+
+  'log txt': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/input/' +
+      keys.publicKey(this.stream.id) + '.txt?private_key=' +
+      keys.privateKey(this.stream.id) + '&test1=1&test2=2';
+
+    test.expect(3);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body, '1 success\n', 'should return a success method');
+
+      test.done();
+
+    });
+
   }
 
 };
