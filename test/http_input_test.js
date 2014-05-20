@@ -68,29 +68,56 @@ exports.input = {
 
     });
 
-    console.log('fuck');
   },
 
   tearDown: function(done) {
-    rimraf.sync('tmp');
-    done();
+
+    meta.remove(this.stream.id, function(err) {
+
+      if (err) {
+        console.log('test tear down failed: ' + err);
+        process.exit(1);
+      }
+
+      done();
+
+    });
+
   },
 
-  'log txt': function(test) {
+  'log': function(test) {
 
-    var url = 'http://localhost:' + http_port + '/input/' +
-      keys.publicKey(this.stream.id) + '.txt?private_key=' +
-      keys.privateKey(this.stream.id) + '&test1=1&test2=2';
+    var self = this;
 
-    test.expect(3);
+    var url = function(ext) {
 
-    request(url, function(error, response, body) {
+      return 'http://localhost:' + http_port + '/input/' +
+        keys.publicKey(self.stream.id) + '.' + ext + '?private_key=' +
+        keys.privateKey(self.stream.id) + '&test1=1&test2=2';
 
-      test.ok(!error, 'should not error');
+    };
 
-      test.equal(response.statusCode, 200, 'status should be 200');
+    test.expect(6);
 
-      test.equal(body, '1 success\n', 'should return a success method');
+    request(url('txt'), function(error, response, body) {
+
+      test.ok(!error, 'txt should not error');
+
+      test.equal(response.statusCode, 200, 'txt status should be 200');
+
+      test.equal(body, '1 success\n', 'txt should return a success message');
+
+    });
+
+    request(url('json'), function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'json should not error');
+
+      test.equal(response.statusCode, 200, 'json status should be 200');
+
+      test.ok(body.success, 'json should return a JSON object with success == true');
 
       test.done();
 
