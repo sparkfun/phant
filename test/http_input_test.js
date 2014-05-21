@@ -85,7 +85,7 @@ exports.input = {
 
   },
 
-  'log': function(test) {
+  'log get': function(test) {
 
     var self = this;
 
@@ -110,6 +110,54 @@ exports.input = {
     });
 
     request(url('json'), function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'json should not error');
+
+      test.equal(response.statusCode, 200, 'json status should be 200');
+
+      test.ok(body.success, 'json should return a JSON object with success == true');
+
+      test.done();
+
+    });
+
+  },
+
+  'log post': function(test) {
+
+    var self = this,
+      url = 'http://localhost:' + http_port + '/input/' + keys.publicKey(self.stream.id);
+
+    test.expect(6);
+
+    var options = {
+      url: url + '.txt',
+      method: 'POST',
+      headers: {
+        'Phant-Private-Key': keys.privateKey(this.stream.id)
+      },
+      form: {
+        test1: '1',
+        test2: '2'
+      }
+    };
+
+    request(options, function(error, response, body) {
+
+      test.ok(!error, 'txt should not error');
+
+      test.equal(response.statusCode, 200, 'txt status should be 200');
+
+      test.equal(body, '1 success\n', 'txt should return a success message');
+
+    });
+
+    // override the url to json
+    options.url = url + '.json';
+
+    request(options, function(error, response, body) {
 
       body = JSON.parse(body.trim());
 
