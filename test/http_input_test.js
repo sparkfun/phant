@@ -66,31 +66,37 @@ exports.create = function(test) {
 
 exports.input = {
 
-  'log get': function(test) {
+  'log get txt': function(test) {
 
-    var self = this;
+    var url = 'http://localhost:' + http_port + '/input/' +
+      keys.publicKey(test_stream.id) + '.txt?private_key=' +
+      keys.privateKey(test_stream.id) + '&test1=get&test2=txt';
 
-    var url = function(ext) {
+    test.expect(3);
 
-      return 'http://localhost:' + http_port + '/input/' +
-        keys.publicKey(test_stream.id) + '.' + ext + '?private_key=' +
-        keys.privateKey(test_stream.id) + '&test1=get&test2=' + ext;
+    request(url, function(error, response, body) {
 
-    };
+      test.ok(!error, 'should not error');
 
-    test.expect(6);
+      test.equal(response.statusCode, 200, 'status should be 200');
 
-    request(url('txt'), function(error, response, body) {
+      test.equal(body, '1 success\n', 'should return a success message');
 
-      test.ok(!error, 'txt should not error');
-
-      test.equal(response.statusCode, 200, 'txt status should be 200');
-
-      test.equal(body, '1 success\n', 'txt should return a success message');
+      test.done();
 
     });
 
-    request(url('json'), function(error, response, body) {
+  },
+
+  'log get json': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/input/' +
+      keys.publicKey(test_stream.id) + '.json?private_key=' +
+      keys.privateKey(test_stream.id) + '&test1=get&test2=json';
+
+    test.expect(3);
+
+    request(url, function(error, response, body) {
 
       body = JSON.parse(body.trim());
 
@@ -106,14 +112,12 @@ exports.input = {
 
   },
 
-  'log post': function(test) {
+  'log post txt': function(test) {
 
-    var url = 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id);
-
-    test.expect(6);
+    test.expect(3);
 
     var options = {
-      url: url + '.txt',
+      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
       method: 'POST',
       headers: {
         'Phant-Private-Key': keys.privateKey(test_stream.id)
@@ -132,10 +136,27 @@ exports.input = {
 
       test.equal(body, '1 success\n', 'txt should return a success message');
 
+      test.done();
+
     });
 
-    options.url = url + '.json';
-    options.form.test2 = 'json';
+  },
+
+  'log post json': function(test) {
+
+    test.expect(3);
+
+    var options = {
+      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.json',
+      method: 'POST',
+      headers: {
+        'Phant-Private-Key': keys.privateKey(test_stream.id)
+      },
+      form: {
+        test1: 'post',
+        test2: 'json'
+      }
+    };
 
     request(options, function(error, response, body) {
 
