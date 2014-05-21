@@ -6,6 +6,7 @@ var Phant = require('../index'),
   Meta = require('phant-meta-json'),
   Storage = require('phant-stream-csv'),
   request = require('request'),
+  rimraf = require('rimraf'),
   app = Phant(),
   http_port = 8080;
 
@@ -15,11 +16,11 @@ var keys = Keychain({
 });
 
 var meta = Meta({
-  directory: 'tmp'
+  directory: path.join(__dirname, 'tmp')
 });
 
 var stream = Storage({
-  directory: 'tmp',
+  directory: path.join(__dirname, 'tmp'),
   cap: 1024,
   chunk: 96
 });
@@ -225,5 +226,23 @@ exports.input = {
     });
 
   }
+
+};
+
+exports.cleanup = function(test) {
+
+  test.expect(1);
+
+  meta.remove(test_stream.id, function(err) {
+
+    test.ok(!err, 'remove should not error');
+
+    test_stream = stream;
+
+    rimraf.sync(path.join(__dirname, 'tmp'));
+
+    test.done();
+
+  });
 
 };
