@@ -5,7 +5,6 @@ var Phant = require('../index'),
   Keychain = require('phant-keychain-hex'),
   Meta = require('phant-meta-json'),
   Storage = require('phant-stream-csv'),
-  rimraf = require('rimraf'),
   request = require('request'),
   app = Phant(),
   http_port = 8080;
@@ -41,49 +40,31 @@ Phant.HttpServer.use(httpInput);
 app.registerInput(httpInput);
 app.registerOutput(stream);
 
+var test_stream = {
+  title: 'input test',
+  description: 'this should be deleted by the test',
+  fields: ['test1', 'test2'],
+  tags: ['input test'],
+  hidden: false
+};
+
+exports.create = function(test) {
+
+  test.expect(1);
+
+  meta.create(test_stream, function(err, stream) {
+
+    test.ok(!err, 'should not error');
+
+    test_stream = stream;
+
+    test.done();
+
+  });
+
+};
+
 exports.input = {
-
-  setUp: function(done) {
-
-    var self = this;
-
-    var test_stream = {
-      title: 'input test',
-      description: 'this should be deleted by the test',
-      fields: ['test1', 'test2'],
-      tags: ['input test'],
-      hidden: false
-    };
-
-    meta.create(test_stream, function(err, stream) {
-
-      if (err) {
-        console.log('test set up failed: ' + err);
-        process.exit(1);
-      }
-
-      self.stream = stream;
-
-      done();
-
-    });
-
-  },
-
-  tearDown: function(done) {
-
-    meta.remove(this.stream.id, function(err) {
-
-      if (err) {
-        console.log('test tear down failed: ' + err);
-        process.exit(1);
-      }
-
-      done();
-
-    });
-
-  },
 
   'log get': function(test) {
 
@@ -92,8 +73,8 @@ exports.input = {
     var url = function(ext) {
 
       return 'http://localhost:' + http_port + '/input/' +
-        keys.publicKey(self.stream.id) + '.' + ext + '?private_key=' +
-        keys.privateKey(self.stream.id) + '&test1=1&test2=2';
+        keys.publicKey(test_stream.id) + '.' + ext + '?private_key=' +
+        keys.privateKey(test_stream.id) + '&test1=get&test2=' + ext;
 
     };
 
@@ -127,8 +108,7 @@ exports.input = {
 
   'log post': function(test) {
 
-    var self = this,
-      url = 'http://localhost:' + http_port + '/input/' + keys.publicKey(self.stream.id);
+    var url = 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id);
 
     test.expect(6);
 
@@ -136,11 +116,11 @@ exports.input = {
       url: url + '.txt',
       method: 'POST',
       headers: {
-        'Phant-Private-Key': keys.privateKey(this.stream.id)
+        'Phant-Private-Key': keys.privateKey(test_stream.id)
       },
       form: {
-        test1: '1',
-        test2: '2'
+        test1: 'post',
+        test2: 'txt'
       }
     };
 
@@ -154,8 +134,8 @@ exports.input = {
 
     });
 
-    // override the url to json
     options.url = url + '.json';
+    options.form.test2 = 'json';
 
     request(options, function(error, response, body) {
 
@@ -168,6 +148,58 @@ exports.input = {
       test.ok(body.success, 'json should return a JSON object with success == true');
 
       test.done();
+
+    });
+
+  },
+
+  'clear': function(test) {
+
+    test.expect(5);
+
+    var options = {
+      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '/clear.txt',
+      method: 'DELETE',
+      headers: {
+        'Phant-Private-Key': keys.privateKey(test_stream.id)
+      }
+    };
+
+    var count = function(cb) {
+
+      var readStream = stream.objectReadStream(test_stream.id),
+        c = 0;
+
+      readStream.on('data', function(chunk) {
+        c++;
+      });
+
+      readStream.on('end', function() {
+        cb(c);
+      });
+
+    };
+
+    count(function(c) {
+
+      test.equal(c, 4, 'should start with 4 log entries');
+
+      request(options, function(error, response, body) {
+
+        test.ok(!error, 'should not error');
+
+        test.equal(response.statusCode, 200, 'status should be 200');
+
+        test.equal(body, '1 success\n', 'should return a success message');
+
+        var readStream = stream.objectReadStream(test_stream.id);
+
+        readStream.on('error', function(err) {
+          test.ok(err, 'should not error');
+          test.done();
+        });
+
+      });
 
     });
 
