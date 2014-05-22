@@ -62,6 +62,21 @@ exports.telnet = {
       test.ok(/created/.test(result.tags), 'should report stream created');
 
       test.done();
+
+    });
+
+  },
+
+  'list': function(test) {
+
+    test.expect(1);
+
+    connection.exec('list', function(response) {
+
+      test.ok(/manager create test/.test(response), 'should return test stream');
+
+      test.done();
+
     });
 
   }
@@ -86,6 +101,7 @@ function send(txt) {
 
     connection.exec(txt, function(response) {
 
+      // stop multiple responses from calling the callback
       if (responded) {
         return;
       }
