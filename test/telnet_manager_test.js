@@ -69,13 +69,52 @@ exports.telnet = {
 
   'list': function(test) {
 
+    var responded = false;
+
     test.expect(1);
 
     connection.exec('list', function(response) {
 
+      // stop multiple responses from calling the callback
+      if (responded) {
+        return;
+      }
+
       test.ok(/manager create test/.test(response), 'should return test stream');
 
       test.done();
+
+      responded = true;
+
+    });
+
+  },
+
+  'delete': function(test) {
+
+    test.expect(5);
+
+    meta.list(function(err, streams) {
+
+      test.ok(!err, 'should not report error');
+
+      test.equal(streams.length, 1, 'should have one stream');
+
+      async.series({
+        cmd: send('delete'),
+        pub: send(keys.publicKey(streams[0].id)),
+        del: send(keys.deleteKey(streams[0].id))
+      }, function(err, result) {
+
+        test.ok(!err, 'should not error');
+        test.ok(/deleted/.test(result.del), 'should report stream deleted');
+
+        meta.list(function(err, streams) {
+          test.equal(streams.length, 0, 'should have no streams');
+          test.done();
+        });
+
+      });
 
     });
 
