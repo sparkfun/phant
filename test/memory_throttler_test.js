@@ -33,7 +33,7 @@ var validator = Phant.Validator({
 var httpInput = Phant.HttpInput({
   throttler: Phant.MemoryThrottler({
     limit: 5,
-    window: 10
+    window: 2
   }),
   validator: validator,
   keychain: keys
@@ -79,12 +79,31 @@ exports.throttler = {
 
       test.ok(!err, 'should not error');
 
-      log(6, function(err) {
+      log(5, function(err) {
         test.equal(err, 'failed', 'should limit');
         test.done();
       });
 
     });
+
+  },
+
+  'reset': function(test) {
+
+    test.expect(2);
+
+    log(6, function(err) {
+      test.equal(err, 'failed', 'should limit');
+    });
+
+    setTimeout(function() {
+
+      log(7, function(err) {
+        test.ok(!err, 'should not error');
+        test.done();
+      });
+
+    }.bind(this), 2000);
 
   }
 
