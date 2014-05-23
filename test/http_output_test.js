@@ -22,8 +22,8 @@ var meta = Meta({
 
 var stream = Storage({
   directory: path.join(__dirname, 'tmp'),
-  cap: 3000,
-  chunk: 96
+  cap: 4000,
+  chunk: 128
 });
 
 var validator = Phant.Validator({
@@ -77,6 +77,33 @@ exports.create = function(test) {
     });
 
   });
+
+};
+
+exports.output = {
+
+  'json': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json';
+
+    test.expect(3);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0].test1, '199', 'first element should be 199');
+
+      test.done();
+
+    });
+
+  }
 
 };
 
