@@ -38,7 +38,8 @@
     "JSONStream": "^0.8.0",
     "csv-write-stream": "^0.1.1",
     "wez-telnet": "^0.1.1",
-    "async": "~0.7.0"
+    "async": "~0.7.0",
+    "formidable": "~1.0.14"
   },
   "optionalDependencies": {
     "phant-keychain-hex": "^0.2.1",
