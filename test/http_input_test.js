@@ -241,7 +241,9 @@ exports.cleanup = function(test) {
 
     rimraf.sync(path.join(__dirname, 'tmp'));
 
-    test.done();
+    Phant.HttpServer.close(function() {
+      test.done();
+    });
 
   });
 
