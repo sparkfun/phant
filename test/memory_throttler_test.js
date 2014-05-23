@@ -7,6 +7,7 @@ var Phant = require('../index'),
   Storage = require('phant-stream-csv'),
   request = require('request'),
   rimraf = require('rimraf'),
+  async = require('async'),
   app = Phant(),
   http_port = 8080;
 
@@ -30,7 +31,10 @@ var validator = Phant.Validator({
 });
 
 var httpInput = Phant.HttpInput({
-  throttler: Phant.MemoryThrottler(),
+  throttler: Phant.MemoryThrottler({
+    limit: 5,
+    window: 10
+  }),
   validator: validator,
   keychain: keys
 });
@@ -65,6 +69,27 @@ exports.create = function(test) {
 
 };
 
+exports.throttler = {
+
+  'limit': function(test) {
+
+    test.expect(2);
+
+    async.timesSeries(4, log, function(err) {
+
+      test.ok(!err, 'should not error');
+
+      log(6, function(err) {
+        test.equal(err, 'failed', 'should limit');
+        test.done();
+      });
+
+    });
+
+  }
+
+};
+
 exports.cleanup = function(test) {
 
   test.expect(1);
@@ -73,17 +98,17 @@ exports.cleanup = function(test) {
 
     test.ok(!err, 'remove should not error');
 
-    test_stream = stream;
-
     rimraf.sync(path.join(__dirname, 'tmp'));
 
-    test.done();
+    Phant.HttpServer.close(function() {
+      test.done();
+    });
 
   });
 
 };
 
-function log(n, callback) {
+function log(n, next) {
 
   var options = {
     url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
@@ -98,11 +123,11 @@ function log(n, callback) {
 
   request(options, function(error, response, body) {
 
-    if (!/0 success/.test(body)) {
-      return callback('failed', n);
+    if (!/1\ssuccess/.test(body)) {
+      return next('failed', n);
     }
 
-    callback(null, n);
+    next(null, body);
 
   });
 
