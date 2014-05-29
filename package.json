@@ -1,6 +1,6 @@
 {
   "name": "phant",
-  "version": "3.0.0",
+  "version": "3.2.0",
   "main": "index.js",
   "description": "data collection server for the internet of things",
   "homepage": "https://github.com/sparkfun/phant",
@@ -55,6 +55,7 @@
     "load-grunt-tasks": "~0.2.0",
     "request": "^2.36.0",
     "rimraf": "^2.2.8",
+    "telnet-client": "0.0.6",
     "time-grunt": "~0.2.0"
   }
 }

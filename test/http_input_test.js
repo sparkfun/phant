@@ -237,11 +237,11 @@ exports.cleanup = function(test) {
 
     test.ok(!err, 'remove should not error');
 
-    test_stream = stream;
-
     rimraf.sync(path.join(__dirname, 'tmp'));
 
-    test.done();
+    Phant.HttpServer.close(function() {
+      test.done();
+    });
 
   });
 
