@@ -73,11 +73,13 @@ exports.input = {
       keys.publicKey(test_stream.id) + '.txt?private_key=' +
       keys.privateKey(test_stream.id) + '&test1=get&test2=txt';
 
-    test.expect(3);
+    test.expect(4);
 
     request(url, function(error, response, body) {
 
       test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
 
       test.equal(response.statusCode, 200, 'status should be 200');
 
@@ -95,13 +97,15 @@ exports.input = {
       keys.publicKey(test_stream.id) + '.json?private_key=' +
       keys.privateKey(test_stream.id) + '&test1=get&test2=json';
 
-    test.expect(3);
+    test.expect(4);
 
     request(url, function(error, response, body) {
 
       body = JSON.parse(body.trim());
 
       test.ok(!error, 'json should not error');
+
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
 
       test.equal(response.statusCode, 200, 'json status should be 200');
 
@@ -115,7 +119,7 @@ exports.input = {
 
   'log post txt': function(test) {
 
-    test.expect(3);
+    test.expect(4);
 
     var options = {
       url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
@@ -133,6 +137,8 @@ exports.input = {
 
       test.ok(!error, 'txt should not error');
 
+      test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
+
       test.equal(response.statusCode, 200, 'txt status should be 200');
 
       test.equal(body, '1 success\n', 'txt should return a success message');
@@ -145,7 +151,7 @@ exports.input = {
 
   'log post json': function(test) {
 
-    test.expect(3);
+    test.expect(4);
 
     var options = {
       url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.json',
@@ -165,6 +171,8 @@ exports.input = {
 
       test.ok(!error, 'json should not error');
 
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+
       test.equal(response.statusCode, 200, 'json status should be 200');
 
       test.ok(body.success, 'json should return a JSON object with success == true');
@@ -177,7 +185,7 @@ exports.input = {
 
   'clear': function(test) {
 
-    test.expect(5);
+    test.expect(6);
 
     var options = {
       url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '/clear.txt',
@@ -209,6 +217,8 @@ exports.input = {
       request(options, function(error, response, body) {
 
         test.ok(!error, 'should not error');
+
+        test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
 
         test.equal(response.statusCode, 200, 'status should be 200');
 
