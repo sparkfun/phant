@@ -9,7 +9,11 @@
 'use strict';
 
 /**** Module dependencies ****/
-var events = require('events');
+var events = require('events'),
+  util = require('util');
+
+/**** Make Phant an event emitter ****/
+util.inherits(Phant, events.EventEmitter);
 
 /**** Phant prototype ****/
 var app = Phant.prototype;
@@ -33,6 +37,7 @@ function Phant() {
     return new Phant();
   }
 
+  events.EventEmitter.call(this);
   this.on('error', this.handleError);
 
   this.managers = [];
@@ -40,9 +45,6 @@ function Phant() {
   this.outputs = [];
 
 }
-
-/**** Make Phant an event emitter ****/
-Phant.prototype.__proto__ = events.EventEmitter.prototype;
 
 /**** Log errors to console ****/
 app.handleError = function() {
