@@ -185,7 +185,7 @@ exports.input = {
 
   'log post 100k': function(test) {
 
-    test.expect(2);
+    test.expect(3);
 
     var options = {
       url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
@@ -206,8 +206,8 @@ exports.input = {
     request(options, function(error, response, body) {
 
       test.ok(!error, 'should not error');
-
-      test.equal(response.statusCode, 413, 'txt status should be 413');
+      test.equal(response.statusCode, 413, 'status should be 413');
+      test.ok(/exceeded/.test(body), 'body should contain error message');
 
       test.done();
 
