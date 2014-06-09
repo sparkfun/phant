@@ -183,6 +183,38 @@ exports.input = {
 
   },
 
+  'log post 100k': function(test) {
+
+    test.expect(2);
+
+    var options = {
+      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
+      method: 'POST',
+      headers: {
+        'Phant-Private-Key': keys.privateKey(test_stream.id)
+      },
+      form: {
+        test1: '',
+        test2: 'txt'
+      }
+    };
+
+    for (var i = 0; i < 102400; i++) {
+      options.form.test1 += 'x';
+    }
+
+    request(options, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(response.statusCode, 413, 'txt status should be 413');
+
+      test.done();
+
+    });
+
+  },
+
   'clear': function(test) {
 
     test.expect(6);
