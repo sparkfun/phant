@@ -215,6 +215,34 @@ exports.input = {
 
   },
 
+  'log get 64k': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/input/' +
+      keys.publicKey(test_stream.id) + '.txt?private_key=' +
+      keys.privateKey(test_stream.id) + '&test1=get&test2=';
+
+    test.expect(4);
+
+    for (var i = 0; i < 65536; i++) {
+      url += 'x';
+    }
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
+
+      test.equal(response.statusCode, 414, 'status should be 414');
+
+      test.ok(/exceeded/.test(body), 'body should contain an error message');
+
+      test.done();
+
+    });
+
+  },
+
   'clear': function(test) {
 
     test.expect(6);
