@@ -183,6 +183,66 @@ exports.input = {
 
   },
 
+  'log post 100k': function(test) {
+
+    test.expect(3);
+
+    var options = {
+      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
+      method: 'POST',
+      headers: {
+        'Phant-Private-Key': keys.privateKey(test_stream.id)
+      },
+      form: {
+        test1: '',
+        test2: 'txt'
+      }
+    };
+
+    for (var i = 0; i < 102400; i++) {
+      options.form.test1 += 'x';
+    }
+
+    request(options, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+      test.equal(response.statusCode, 413, 'status should be 413');
+      test.ok(/exceeded/.test(body), 'body should contain error message');
+
+      test.done();
+
+    });
+
+  },
+
+  'log get 64k': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/input/' +
+      keys.publicKey(test_stream.id) + '.txt?private_key=' +
+      keys.privateKey(test_stream.id) + '&test1=get&test2=';
+
+    test.expect(4);
+
+    for (var i = 0; i < 65536; i++) {
+      url += 'x';
+    }
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
+
+      test.equal(response.statusCode, 414, 'status should be 414');
+
+      test.ok(/exceeded/.test(body), 'body should contain an error message');
+
+      test.done();
+
+    });
+
+  },
+
   'clear': function(test) {
 
     test.expect(6);

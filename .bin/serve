@@ -87,7 +87,8 @@ app.registerManager(
   Phant.TelnetManager({
     port: telnet_port,
     metadata: meta,
-    keychain: keys
+    keychain: keys,
+    validator: validator
   })
 );
 

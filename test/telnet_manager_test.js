@@ -21,11 +21,16 @@ var meta = Meta({
   directory: path.join(__dirname, 'tmp')
 });
 
+var validator = Phant.Validator({
+  metadata: meta
+});
+
 app.registerManager(
   Phant.TelnetManager({
     port: 8081,
     metadata: meta,
-    keychain: keys
+    keychain: keys,
+    validator: validator
   })
 );
 
@@ -38,7 +43,7 @@ exports.connect = function(test) {
   connection.connect({
     host: '127.0.0.1',
     port: 8081,
-    shellPrompt: '> ',
+    shellPrompt: /> /,
     irs: '\n'
   });
 
@@ -55,7 +60,7 @@ exports.telnet = {
       title: send('manager create test'),
       description: send('this should be deleted by the test'),
       fields: send('test1, test2'),
-      tags: send('manager test')
+      tags: send('manager_test, test')
     }, function(err, result) {
 
       test.ok(!err, 'should not error');
@@ -97,8 +102,11 @@ exports.telnet = {
     meta.list(function(err, streams) {
 
       test.ok(!err, 'should not report error');
+      test.ok(streams.length > 0, 'should have at least one stream');
 
-      test.equal(streams.length, 1, 'should have one stream');
+      if (!streams[0]) {
+        return test.done();
+      }
 
       async.series({
         cmd: send('delete'),

@@ -4,3 +4,4 @@ npm-debug.log
 *.swp
 /tmp/
 /test/tmp/
+.DS_Store
