@@ -32,7 +32,6 @@
     "test": "grunt"
   },
   "dependencies": {
-    "ip": "^0.3.0",
     "JSONStream": "^0.8.0",
     "csv-write-stream": "^0.1.1",
     "wez-telnet": "^0.1.1",
