@@ -183,6 +183,44 @@ exports.input = {
 
   },
 
+  'log post jsonp': function(test) {
+
+    test.expect(4);
+
+    var options = {
+      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.json?callback=phant_jsonp_test',
+      method: 'POST',
+      headers: {
+        'Phant-Private-Key': keys.privateKey(test_stream.id)
+      },
+      form: {
+        test1: 'post',
+        test2: 'jsonp'
+      }
+    };
+
+    request(options, function(error, response, body) {
+
+      var phant_jsonp_test = function(obj) {
+        return obj;
+      };
+
+      var result = eval(body); // jshint ignore:line
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/javascript'), 'content-type should be text/javascript');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.ok(result.success, 'should return an object with success == true');
+
+      test.done();
+
+    });
+
+  },
+
   'log post 100k': function(test) {
 
     test.expect(3);
@@ -272,7 +310,7 @@ exports.input = {
 
     count(function(c) {
 
-      test.equal(c, 4, 'should start with 4 log entries');
+      test.equal(c, 5, 'should start with 5 log entries');
 
       request(options, function(error, response, body) {
 
