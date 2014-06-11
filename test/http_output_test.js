@@ -107,6 +107,35 @@ exports.output = {
 
   },
 
+  'jsonp': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json?callback=phant_jsonp_test';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      var phant_jsonp_test = function(obj) {
+        return obj;
+      };
+
+      var result = eval(body); // jshint ignore:line
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/javascript'), 'content-type should be text/javascript');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(result[0].test1, '199', 'first element should be 199');
+
+      test.done();
+
+    });
+
+  },
+
   'csv': function(test) {
 
     var url = 'http://localhost:' + http_port + '/output/' +
