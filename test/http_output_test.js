@@ -107,6 +107,32 @@ exports.output = {
 
   },
 
+  'csv': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.csv';
+
+    test.expect(5);
+
+    request(url, function(error, response, body) {
+
+      body = body.split('\n');
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/csv'), 'content-type should be text/csv');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0], 'test1,test2', 'first row should be headers');
+      test.equal(body[1], '199,test', 'second row should be 199,test');
+
+      test.done();
+
+    });
+
+  },
+
   'stats': function(test) {
 
     var url = 'http://localhost:' + http_port + '/output/' +
