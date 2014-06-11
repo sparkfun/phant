@@ -105,7 +105,29 @@ exports.output = {
 
     });
 
-  }
+  },
+
+  'stats': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/stats.json';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+      test.equal(response.statusCode, 200, 'status should be 200');
+      test.equal(body.cap, 4000, 'cap should be 4000');
+
+      test.done();
+
+    });
+
+  },
 
 };
 
