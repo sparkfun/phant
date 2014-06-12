@@ -10,5 +10,6 @@
   "unused": "var",
   "boss": true,
   "eqnull": true,
-  "node": true
+  "node": true,
+  "-W086": true
 }

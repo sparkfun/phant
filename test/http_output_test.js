@@ -105,7 +105,84 @@ exports.output = {
 
     });
 
-  }
+  },
+
+  'jsonp': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json?callback=phant_jsonp_test';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      var phant_jsonp_test = function(obj) {
+        return obj;
+      };
+
+      var result = eval(body); // jshint ignore:line
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/javascript'), 'content-type should be text/javascript');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(result[0].test1, '199', 'first element should be 199');
+
+      test.done();
+
+    });
+
+  },
+
+  'csv': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.csv';
+
+    test.expect(5);
+
+    request(url, function(error, response, body) {
+
+      body = body.split('\n');
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/csv'), 'content-type should be text/csv');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0], 'test1,test2', 'first row should be headers');
+      test.equal(body[1], '199,test', 'second row should be 199,test');
+
+      test.done();
+
+    });
+
+  },
+
+  'stats': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/stats.json';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+      test.equal(response.statusCode, 200, 'status should be 200');
+      test.equal(body.cap, 4000, 'cap should be 4000');
+
+      test.done();
+
+    });
+
+  },
 
 };
 
