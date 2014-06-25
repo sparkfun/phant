@@ -286,7 +286,7 @@ exports.input = {
     test.expect(6);
 
     var options = {
-      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '/clear.txt',
+      url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
       method: 'DELETE',
       headers: {
         'Phant-Private-Key': keys.privateKey(test_stream.id)
@@ -325,7 +325,7 @@ exports.input = {
         var readStream = stream.objectReadStream(test_stream.id);
 
         readStream.on('error', function(err) {
-          test.ok(err, 'should not error');
+          test.ok(err, 'should error');
           test.done();
         });
 
