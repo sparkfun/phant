@@ -59,7 +59,7 @@ Phant.HttpServer.use(function(req, res) {
     return;
   }
 
-  var body = 'phant http manager not enabled on this server\n';
+  var body = 'phant is ready and listening for input.\n';
 
   res.writeHead(404, {
     'Content-Type': 'text/plain',
