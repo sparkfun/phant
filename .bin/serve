@@ -4,7 +4,7 @@ var Phant = require('../index'),
     dotenv = require('dotenv').load(),
     path = require('path'),
     Keychain = require('phant-keychain-hex'),
-    Meta = require('phant-meta-json'),
+    Meta = require('phant-meta-nedb'),
     Storage = require('phant-stream-csv'),
     app = Phant()
     http_port = process.env.PHANT_PORT || 8080,
@@ -16,11 +16,11 @@ var keys = Keychain({
 });
 
 var meta = Meta({
-  directory: process.env.PHANT_STORAGEDIR || 'tmp'
+  directory: process.env.PHANT_STORAGEDIR || 'phant_streams'
 });
 
 var stream = Storage({
-  directory: process.env.PHANT_STORAGEDIR || 'tmp',
+  directory: process.env.PHANT_STORAGEDIR || 'phant_streams',
   cap: process.env.PHANT_CAP || 2 * 1024 * 1024 * 1024, // 2gb
   chunk: process.env.PHANT_CHUNK || 500 * 1024 // 500k
 });

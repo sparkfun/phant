@@ -3,7 +3,7 @@
 var Phant = require('../index'),
   path = require('path'),
   Keychain = require('phant-keychain-hex'),
-  Meta = require('phant-meta-json'),
+  Meta = require('phant-meta-nedb'),
   Storage = require('phant-stream-csv'),
   request = require('request'),
   rimraf = require('rimraf'),
