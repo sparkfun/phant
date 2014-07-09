@@ -4,5 +4,5 @@ npm-debug.log
 *.swp
 /tmp/
 /test/tmp/
-/node_streams/
+/phant_streams/
 .DS_Store
