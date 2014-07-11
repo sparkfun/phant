@@ -8,7 +8,7 @@ var Phant = require('../index'),
     Storage = require('phant-stream-csv'),
     app = Phant()
     http_port = process.env.PHANT_PORT || 8080,
-    telnet_port = process.env.PHANT_PORT || 8081;
+    telnet_port = process.env.PHANT_TELNET_PORT || 8081;
 
 var keys = Keychain({
   publicSalt: process.env.PHANT_PUBLIC_SALT || 'public salt',
