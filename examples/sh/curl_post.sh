@@ -11,9 +11,9 @@ PHANT_CODE=sh
 echo -n "What is your favorite animal? "
 read PHANT_ANIMAL
 
-curl --header "Phant-Private-Key: aP2g6rdxlRIxJ9Pr6YgV" \
+curl --header "Phant-Private-Key: WwwZVA7W5PiMG92Ym0p2" \
      --data "who=$PHANT_WHO" \
      --data "where=$PHANT_WHERE" \
      --data "code=$PHANT_CODE" \
      --data "favorite_animal=$PHANT_ANIMAL" \
-     'https://data.sparkfun.com/input/v0gxy8OnGVCOGl38oqM4' \
+     'https://data.sparkfun.com/input/6JJ4dEYoqNTwjyMVn0ZM' \

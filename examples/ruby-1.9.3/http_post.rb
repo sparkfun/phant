@@ -7,8 +7,8 @@
 require 'net/http'
 
 endpoint = 'https://data.sparkfun.com'
-pubhash  = 'v0gxy8OnGVCOGl38oqM4'
-privhash = 'aP2g6rdxlRIxJ9Pr6YgV'
+pubhash  = '6JJ4dEYoqNTwjyMVn0ZM'
+privhash = 'WwwZVA7W5PiMG92Ym0p2'
 
 data = { 'code' => 'ruby-1.9.3' }
 

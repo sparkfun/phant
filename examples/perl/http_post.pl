@@ -14,8 +14,8 @@ use LWP::UserAgent;
 use HTTP::Request::Common qw(POST);
 
 my $endpoint = 'https://data.sparkfun.com';
-my $pubhash  = 'v0gxy8OnGVCOGl38oqM4';
-my $privhash = 'aP2g6rdxlRIxJ9Pr6YgV';
+my $pubhash  = '6JJ4dEYoqNTwjyMVn0ZM';
+my $privhash = 'WwwZVA7W5PiMG92Ym0p2';
 
 my %data = (code => 'Perl');
 
