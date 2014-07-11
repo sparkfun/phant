@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-import urllib
-import urllib2
 
 """ Simple http POST example using Python 2.7 and urllib and urllib2."""
+
+import urllib
+import urllib2
 
 public_hash     = 'KJJGv81n1pUyM4Kbg9by'
 private_hash    = 'vzzjDZR6RpfjdEzb1Ybj'
