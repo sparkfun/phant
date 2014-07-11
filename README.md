@@ -1,4 +1,4 @@
-# phant [![Build Status](https://secure.travis-ci.org/sparkfun/phant.png?branch=master)](http://travis-ci.org/sparkfun/phant)
+# phant [![Build Status](https://secure.travis-ci.org/sparkfun/phant.svg?branch=master)](http://travis-ci.org/sparkfun/phant)
 
 phant is a modular logging tool developed by [SparkFun Electronics](https://sparkfun.com) for collecting data from
 the [Internet of Things](http://en.wikipedia.org/wiki/Internet_of_Things).  phant is the open source software that powers
