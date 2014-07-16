@@ -1,6 +1,6 @@
 {
   "name": "phant",
-  "version": "6.1.5",
+  "version": "6.2.0",
   "main": "index.js",
   "description": "data collection server for the internet of things",
   "homepage": "https://github.com/sparkfun/phant",
