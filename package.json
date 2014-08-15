@@ -37,7 +37,8 @@
     "csv-write-stream": "^0.1.1",
     "formidable": "~1.0.14",
     "routes": "^1.2.0",
-    "wez-telnet": "^0.1.1"
+    "wez-telnet": "^0.1.1",
+    "xml": "0.0.12"
   },
   "optionalDependencies": {
     "dotenv": "^0.2.5",
