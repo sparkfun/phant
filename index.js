@@ -86,9 +86,8 @@ app.registerInput = function(input) {
 
   // pipe input errors to phant error handler
   input.on('error', this.handleError.bind(
-    this,
-    input.name,
-    ': '
+    input,
+    input.name + ':'
   ));
 
 };
@@ -106,9 +105,8 @@ app.registerOutput = function(output) {
 
   // pipe output errors to phant error handler
   output.on('error', this.handleError.bind(
-    this,
-    output.name,
-    ': '
+    output,
+    output.name + ':'
   ));
 
 };
