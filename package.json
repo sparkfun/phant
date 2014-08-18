@@ -37,7 +37,6 @@
     "csv-write-stream": "^0.1.1",
     "formidable": "~1.0.14",
     "routes": "^1.2.0",
-    "sql": "^0.39.0",
     "wez-telnet": "^0.1.1",
     "xml": "0.0.12"
   },
