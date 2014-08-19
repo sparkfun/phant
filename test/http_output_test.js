@@ -192,6 +192,66 @@ exports.output = {
 
   },
 
+  'sql': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.sql';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(
+        response.headers['content-type'],
+        'text/plain',
+        'content-type should be text/plain'
+      );
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.ok(
+        /\('199', 'test'/g.test(body),
+        'body should contain pushed data'
+      );
+
+      test.done();
+
+    });
+
+  },
+
+  'psql': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.psql';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(
+        response.headers['content-type'],
+        'text/plain',
+        'content-type should be text/plain'
+      );
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.ok(
+        /\('199', 'test'/g.test(body),
+        'body should contain pushed data'
+      );
+
+      test.done();
+
+    });
+
+  },
+
   'stats': function(test) {
 
     var url = 'http://localhost:' + http_port + '/output/' +
