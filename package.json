@@ -36,6 +36,7 @@
     "async": "~0.9.0",
     "csv-write-stream": "^0.1.1",
     "formidable": "~1.0.14",
+    "qs": "^1.2.2",
     "routes": "^1.2.0",
     "wez-telnet": "^0.1.1",
     "xml": "0.0.12"
