@@ -44,7 +44,7 @@ app.registerOutput(httpOutput);
 var test_stream = {
   title: 'output test',
   description: 'this should be deleted by the test',
-  fields: ['test1', 'test2'],
+  fields: ['test1', 'test2', 'timestamp'],
   tags: ['output test'],
   hidden: false
 };
@@ -56,7 +56,7 @@ exports.create = function(test) {
   meta.create(test_stream, function(err, rec) {
 
     var ws = stream.writeStream(rec.id);
-    ws.writeHeaders('test1,test2\n');
+    ws.writeHeaders('test1,test2,timestamp\n');
 
     test.ok(!err, 'should not error');
 
@@ -65,7 +65,7 @@ exports.create = function(test) {
     ws.once('open', function() {
 
       async.timesSeries(200, function(n, next) {
-        ws.write(n + ',test\n');
+        ws.write(n + ',test,' + (new Date()).toISOString() + '\n');
         next();
       }, function(err) {
         ws.end();
@@ -149,12 +149,252 @@ exports.output = {
 
       test.ok(!error, 'should not error');
 
-      test.ok(response.headers['content-type'].match('^text/csv'), 'content-type should be text/csv');
+      test.ok(response.headers['content-type'].match(/^text\/csv/), 'content-type should be text/csv');
 
       test.equal(response.statusCode, 200, 'status should be 200');
 
-      test.equal(body[0], 'test1,test2', 'first row should be headers');
-      test.equal(body[1], '199,test', 'second row should be 199,test');
+      test.equal(body[0], 'test1,test2,timestamp', 'first row should be headers');
+      test.ok(/^199,test/.test(body[1]), 'second row should be 199,test');
+
+      test.done();
+
+    });
+
+  },
+
+  'atom': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.atom';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(
+        response.headers['content-type'],
+        'application/atom+xml',
+        'content-type should be application/atom+xml'
+      );
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.ok(
+        /<dd>199<\/dd>/g.test(body),
+        'body should contain pushed data'
+      );
+
+      test.done();
+
+    });
+
+  },
+
+  'sql': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.sql';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(
+        response.headers['content-type'],
+        'text/plain',
+        'content-type should be text/plain'
+      );
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.ok(
+        /\('199', 'test'/g.test(body),
+        'body should contain pushed data'
+      );
+
+      test.done();
+
+    });
+
+  },
+
+  'psql': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.psql';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(
+        response.headers['content-type'],
+        'text/plain',
+        'content-type should be text/plain'
+      );
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.ok(
+        /\('199', 'test'/g.test(body),
+        'body should contain pushed data'
+      );
+
+      test.done();
+
+    });
+
+  },
+
+  'limit': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json?limit=5';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body.length, 5, 'response should contain 5 items');
+
+      test.done();
+
+    });
+
+  },
+
+  'offset': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json?offset=10';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0].test1, '189', 'results should be offset by 10');
+
+      test.done();
+
+    });
+
+  },
+
+  'sample': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json?sample=10';
+
+    test.expect(6);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0].test1, '199', 'first sample should be 199');
+      test.equal(body[1].test1, '189', 'second sample should be 189');
+      test.equal(body[2].test1, '179', 'third sample should be 179');
+
+      test.done();
+
+    });
+
+  },
+
+  'field': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/test1';
+
+    test.expect(6);
+
+    request(url, function(error, response, body) {
+
+      body = body.split('\n');
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0], '199', 'first line should be 199');
+      test.equal(body[1], '198', 'second line should be 198');
+      test.equal(body[2], '197', 'third line should be 197');
+
+      test.done();
+
+    });
+
+  },
+
+  'latest row': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/latest';
+
+    test.expect(6);
+
+    request(url, function(error, response, body) {
+
+      body = body.split('\n');
+
+      test.ok(!error, 'should not error');
+      test.ok(response.headers['content-type'].match(/^text\/plain/), 'content-type should be text/plain');
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0], 'test1,test2,timestamp', 'first row should be headers');
+      test.ok(/^199,test/.test(body[1]), 'second row should be 199,test');
+      test.ok(body[2] === '', 'there should be only one row');
+
+      test.done();
+
+    });
+
+  },
+
+  'latest field': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/test1/latest';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+      test.ok(response.headers['content-type'].match(/^text\/plain/), 'content-type should be text/plain');
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body, '199\n', '199 should be the only value');
 
       test.done();
 
@@ -182,7 +422,7 @@ exports.output = {
 
     });
 
-  },
+  }
 
 };
 
