@@ -354,6 +354,27 @@ exports.output = {
 
   },
 
+  'latest field': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/test1/latest';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+      test.ok(response.headers['content-type'].match(/^text\/plain/), 'content-type should be text/plain');
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body, '199\n', '199 should be the only value');
+
+      test.done();
+
+    });
+
+  },
+
   'stats': function(test) {
 
     var url = 'http://localhost:' + http_port + '/output/' +
@@ -374,7 +395,7 @@ exports.output = {
 
     });
 
-  },
+  }
 
 };
 
