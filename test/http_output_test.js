@@ -321,7 +321,32 @@ exports.output = {
 
       test.equal(body[0].test1, '199', 'first sample should be 199');
       test.equal(body[1].test1, '189', 'second sample should be 189');
-      test.equal(body[2].test1, '179', 'second sample should be 189');
+      test.equal(body[2].test1, '179', 'third sample should be 179');
+
+      test.done();
+
+    });
+
+  },
+
+  'latest row': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/latest';
+
+    test.expect(6);
+
+    request(url, function(error, response, body) {
+
+      body = body.split('\n');
+
+      test.ok(!error, 'should not error');
+      test.ok(response.headers['content-type'].match(/^text\/plain/), 'content-type should be text/plain');
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0], 'test1,test2,timestamp', 'first row should be headers');
+      test.ok(/^199,test/.test(body[1]), 'second row should be 199,test');
+      test.ok(body[2] === '', 'there should be only one row');
 
       test.done();
 
