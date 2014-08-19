@@ -44,7 +44,7 @@ app.registerOutput(httpOutput);
 var test_stream = {
   title: 'output test',
   description: 'this should be deleted by the test',
-  fields: ['test1', 'test2'],
+  fields: ['test1', 'test2', 'timestamp'],
   tags: ['output test'],
   hidden: false
 };
@@ -56,7 +56,7 @@ exports.create = function(test) {
   meta.create(test_stream, function(err, rec) {
 
     var ws = stream.writeStream(rec.id);
-    ws.writeHeaders('test1,test2\n');
+    ws.writeHeaders('test1,test2,timestamp\n');
 
     test.ok(!err, 'should not error');
 
@@ -65,7 +65,7 @@ exports.create = function(test) {
     ws.once('open', function() {
 
       async.timesSeries(200, function(n, next) {
-        ws.write(n + ',test\n');
+        ws.write(n + ',test,' + (new Date()).toISOString() + '\n');
         next();
       }, function(err) {
         ws.end();
@@ -149,12 +149,42 @@ exports.output = {
 
       test.ok(!error, 'should not error');
 
-      test.ok(response.headers['content-type'].match('^text/csv'), 'content-type should be text/csv');
+      test.ok(response.headers['content-type'].match(/^text\/csv/), 'content-type should be text/csv');
 
       test.equal(response.statusCode, 200, 'status should be 200');
 
-      test.equal(body[0], 'test1,test2', 'first row should be headers');
-      test.equal(body[1], '199,test', 'second row should be 199,test');
+      test.equal(body[0], 'test1,test2,timestamp', 'first row should be headers');
+      test.ok(/^199,test/.test(body[1]), 'second row should be 199,test');
+
+      test.done();
+
+    });
+
+  },
+
+  'atom': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.atom';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      test.ok(!error, 'should not error');
+
+      test.equal(
+        response.headers['content-type'],
+        'application/atom+xml',
+        'content-type should be application/atom+xml'
+      );
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.ok(
+        /<dd>199<\/dd>/g.test(body),
+        'body should contain pushed data'
+      );
 
       test.done();
 
