@@ -329,6 +329,33 @@ exports.output = {
 
   },
 
+  'field': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '/test1';
+
+    test.expect(6);
+
+    request(url, function(error, response, body) {
+
+      body = body.split('\n');
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0], '199', 'first line should be 199');
+      test.equal(body[1], '198', 'second line should be 198');
+      test.equal(body[2], '197', 'third line should be 197');
+
+      test.done();
+
+    });
+
+  },
+
   'latest row': function(test) {
 
     var url = 'http://localhost:' + http_port + '/output/' +
