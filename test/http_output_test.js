@@ -302,6 +302,33 @@ exports.output = {
 
   },
 
+  'sample': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json?sample=10';
+
+    test.expect(6);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body[0].test1, '199', 'first sample should be 199');
+      test.equal(body[1].test1, '189', 'second sample should be 189');
+      test.equal(body[2].test1, '179', 'second sample should be 189');
+
+      test.done();
+
+    });
+
+  },
+
   'stats': function(test) {
 
     var url = 'http://localhost:' + http_port + '/output/' +
