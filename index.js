@@ -29,6 +29,10 @@ Phant.HttpOutput = require('./lib/http_output');
 Phant.Validator = require('./lib/validator');
 Phant.TelnetManager = require('./lib/telnet_manager');
 Phant.MemoryThrottler = require('./lib/memory_throttler');
+Phant.AtomStream = require('./lib/atom_stream');
+Phant.FieldStream = require('./lib/field_stream');
+Phant.LimitStream = require('./lib/limit_stream');
+Phant.SampleStream = require('./lib/sample_stream');
 
 /**** Initialize a new Phant ****/
 function Phant() {
@@ -86,9 +90,8 @@ app.registerInput = function(input) {
 
   // pipe input errors to phant error handler
   input.on('error', this.handleError.bind(
-    this,
-    input.name,
-    ': '
+    input,
+    input.name + ':'
   ));
 
 };
@@ -106,9 +109,8 @@ app.registerOutput = function(output) {
 
   // pipe output errors to phant error handler
   output.on('error', this.handleError.bind(
-    this,
-    output.name,
-    ': '
+    output,
+    output.name + ':'
   ));
 
 };
