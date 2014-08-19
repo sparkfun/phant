@@ -252,6 +252,31 @@ exports.output = {
 
   },
 
+  'limit': function(test) {
+
+    var url = 'http://localhost:' + http_port + '/output/' +
+      keys.publicKey(test_stream.id) + '.json?limit=5';
+
+    test.expect(4);
+
+    request(url, function(error, response, body) {
+
+      body = JSON.parse(body.trim());
+
+      test.ok(!error, 'should not error');
+
+      test.ok(response.headers['content-type'].match('^application/json'), 'content-type should be application/json');
+
+      test.equal(response.statusCode, 200, 'status should be 200');
+
+      test.equal(body.length, 5, 'response should contain 5 items');
+
+      test.done();
+
+    });
+
+  },
+
   'stats': function(test) {
 
     var url = 'http://localhost:' + http_port + '/output/' +
