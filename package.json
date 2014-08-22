@@ -35,6 +35,7 @@
     "JSONStream": "^0.8.0",
     "async": "~0.9.0",
     "csv-write-stream": "^0.1.1",
+    "datejs": "^1.0.0-rc1",
     "formidable": "~1.0.14",
     "moment-timezone": "^0.2.1",
     "qs": "^1.2.2",
