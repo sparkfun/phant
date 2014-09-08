@@ -34,6 +34,7 @@
   "dependencies": {
     "JSONStream": "^0.8.0",
     "async": "~0.9.0",
+    "bunyan": "^1.0.1",
     "csv-write-stream": "^0.1.1",
     "datejs": "^1.0.0-rc1",
     "formidable": "~1.0.14",
