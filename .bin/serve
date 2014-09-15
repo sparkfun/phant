@@ -58,7 +58,17 @@ Phant.HttpServer.use(function(req, res) {
     return;
   }
 
-  var body = 'phant is ready and listening for input.\n';
+  if(req.url.match(/^\/streams/)) {
+    var body = '404 Not Found\n\n' + 
+      'phant-manager-http is needed for /streams URLs\n' +
+      'see README for install instructions: \n' +
+      'https://github.com/sparkfun/phant-manager-http\n';
+
+  } else {
+    var body = '404 Not Found\n\n' + 
+      'Expecting URLs starting with /input or /output';
+  }
+
 
   res.writeHead(404, {
     'Content-Type': 'text/plain',
