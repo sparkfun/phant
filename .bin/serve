@@ -6,6 +6,7 @@ var Phant = require('../index'),
     Keychain = require('phant-keychain-hex'),
     Meta = require('phant-meta-nedb'),
     Storage = require('phant-stream-csv'),
+    HttpManager = require('phant-manager-http'),
     app = Phant()
     http_port = process.env.PHANT_PORT || 8080,
     telnet_port = process.env.PHANT_TELNET_PORT || 8081;
@@ -43,41 +44,17 @@ var httpInput = Phant.HttpInput({
 // start listening for connections
 Phant.HttpServer.listen(http_port);
 
-// handle 404s
-Phant.HttpServer.use(function(req, res) {
-
-  if(res.headerSent) {
-    return;
-  }
-
-  if(req.url.match(/^\/input\//)) {
-    return;
-  }
-
-  if(req.url.match(/^\/output\//)) {
-    return;
-  }
-
-  if(req.url.match(/^\/streams/)) {
-    var body = '404 Not Found\n\n' + 
-      'phant-manager-http is needed for /streams URLs\n' +
-      'see README for install instructions: \n' +
-      'https://github.com/sparkfun/phant-manager-http\n';
-
-  } else {
-    var body = '404 Not Found\n\n' + 
-      'Expecting URLs starting with /input or /output';
-  }
-
-
-  res.writeHead(404, {
-    'Content-Type': 'text/plain',
-    'Content-Length': body.length
-  });
-
-  res.end(body);
-
+var httpManager = HttpManager({
+  metadata: meta,
+  keychain: keys,
+  validator: validator
 });
+
+// register manager with phant
+app.registerManager(httpManager);
+
+// attach manager to http server
+Phant.HttpServer.use(httpManager);
 
 // attach input to http server
 Phant.HttpServer.use(httpInput);
