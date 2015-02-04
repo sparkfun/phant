@@ -8,6 +8,32 @@ If you would like to learn more about phant, please visit [phant.io](http://phan
 
 ## Getting Started
 
+### Vagrant
+
+Vagrant is a headless virtual machine that can be run on many different systems.
+Vagrant is a safe and easy way to run `phant` without the need to greatly
+modify your current system
+(see [Why Vagrant?](https://docs.vagrantup.com/v2/why-vagrant/)).
+
+Vagrant Setup:
+
+1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+2. Install [Vagrant](http://www.vagrantup.com/downloads)
+3. Install [Git](http://git-scm.com/downloads)
+4. `git clone https://github.com/sparkfun/phant.git`
+5. `cd phant && vagrant up --provision`
+6. `phant` is now available via http on port 8080 and telnet via port 8081
+
+To restart phant use `vagrant provision` from inside the `phant` directory.
+
+To stop the vagrant virtual machine use `vagrant halt` from inside the
+`phant` directory.
+
+To restart vagrant use `vagrant up --provision` from inside the `phant`
+directory.
+
+### Local
+
 phant is a [npm](https://www.npmjs.org) package, and requires the latest version of [node.js](http://nodejs.org).
 
 Once you have node.js installed, you can install phant by running `npm install -g phant` from your favorite terminal.
