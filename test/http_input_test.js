@@ -284,7 +284,7 @@ exports.input = {
 
   'clear': function(test) {
 
-    test.expect(5);
+    test.expect(6);
 
     var options = {
       url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
@@ -326,7 +326,7 @@ exports.input = {
         test.equal(body, '1 success\n', 'should return a success message');
         var readStream = stream.objectReadStream(test_stream.id);
 
-        test.done();
+
         readStream.on('error', function(err) {
           test.ok(err, 'should error');
           test.done();
