@@ -265,8 +265,9 @@ exports.input = {
       url += 'x';
     }
 
-    request(url, function(error, response, body) {
 
+
+    request(url, function(error, response, body) {
       test.ok(!error, 'should not error');
 
       test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
@@ -283,7 +284,7 @@ exports.input = {
 
   'clear': function(test) {
 
-    test.expect(6);
+    test.expect(5);
 
     var options = {
       url: 'http://localhost:' + http_port + '/input/' + keys.publicKey(test_stream.id) + '.txt',
@@ -292,6 +293,7 @@ exports.input = {
         'Phant-Private-Key': keys.privateKey(test_stream.id)
       }
     };
+
 
     var count = function(cb) {
 
@@ -314,6 +316,7 @@ exports.input = {
 
       request(options, function(error, response, body) {
 
+
         test.ok(!error, 'should not error');
 
         test.ok(response.headers['content-type'].match('^text/plain'), 'content-type should be text/plain');
@@ -321,9 +324,9 @@ exports.input = {
         test.equal(response.statusCode, 200, 'status should be 200');
 
         test.equal(body, '1 success\n', 'should return a success message');
-
         var readStream = stream.objectReadStream(test_stream.id);
 
+        test.done();
         readStream.on('error', function(err) {
           test.ok(err, 'should error');
           test.done();
