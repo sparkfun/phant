@@ -1,0 +1,32 @@
+{{#if notifiers.length}}
+
+  <h1>Send yourself a copy of your keys</h1>
+
+  {{#each notifiers}}
+
+    <h2>Via {{name}}</h2>
+
+    <div class="well">
+
+      <form role="form" action="/streams/{{../../publicKey}}/notify/{{type}}" method="POST">
+
+        <input type="hidden" name="privateKey" value="{{../../privateKey}}">
+
+        {{#each expect}}
+
+          <div class="form-group">
+            <label>{{this}}</label>
+            <input type="text" name="{{@key}}" class="form-control">
+          </div>
+
+        {{/each}}
+
+        <button type="submit" class="btn btn-default">Send</button>
+
+      </form>
+
+    </div>
+
+  {{/each}}
+
+{{/if}}

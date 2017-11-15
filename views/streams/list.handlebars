@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="content">
+    <h1>{{title}}</h1>
+  </div>
+</div>
+
+{{#if streams}}
+
+  {{#each streams}}
+
+    <div class="row stream">
+      <div class="content">
+        <p>
+          <span class="stream-title"><a href="/streams/{{publicKey}}">{{title}}</a></span>
+          <span class="small pull-right text-right">
+            {{> renderLocation this}}
+            {{#if location.country}}<br>{{/if}}
+            last push: {{ago last_push}}
+          </span>
+          <br>
+          {{> renderTags this}}
+        </p>
+
+      </div>
+    </div>
+
+  {{/each}}
+
+{{else}}
+
+  <h2>No streams found. Would you like to <a href="/streams/make">create a stream</a>?</h2>
+
+{{/if}}
+
+{{>pager this}}

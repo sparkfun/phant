@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+
+  <head>
+
+    <title>phant {{#if title}} - {{title}}{{/if}}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    {{#if dev}}
+    <link href="/css/phant.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    <script src="/js/phant-manager.js"></script>
+    {{else}}
+    <link href="/css/phant.min.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    <script src="/js/phant-manager.min.js"></script>
+    {{/if}}
+
+  </head>
+
+  <body>
+
+    {{> header}}
+
+    {{> messages}}
+
+    <main class="container-fluid">
+      {{{body}}}
+    </main>
+
+    {{> footer}}
+
+  </body>
+
+</html>
+

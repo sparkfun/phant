@@ -1,0 +1,72 @@
+<div class="row">
+
+  <div class="col-md-4 col-md-offset-4">
+
+    <h1>Clear Your Stream</h1>
+
+    <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>Warning!</strong> This will clear all data from your stream!
+    </div>
+
+    <form id="clear">
+
+      <div class="form-group">
+        <label>Public Key</label>
+        <input type="text" name="public" class="form-control" >
+      </div>
+
+      <div class="form-group">
+        <label>Private Key</label>
+        <input type="text" name="private" class="form-control" >
+      </div>
+
+      <button type="submit" class="btn btn-danger">Clear!</button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script>
+
+  $(document).ready(function() {
+
+    $('#clear').submit(function(e) {
+
+      //stop standard submits
+      e.preventDefault();
+
+      var pub = $('[name=public]').val(),
+          private = $('[name=private]').val(),
+          submit = $('[type=submit]');
+
+      submit.addClass('disabled').html('Clearing...');
+
+      $.ajax({
+        url: '/input/' + pub + '/clear.json',
+        type: 'POST',
+        headers: {
+          'Phant-Private-Key': private
+        },
+        success: function(response) {
+
+          if(response.success) {
+            window.location = '/streams/' + pub;
+            return;
+          }
+
+          submit.html('Failed.');
+
+        },
+        error: function() {
+          submit.html('Failed.');
+        }
+      });
+
+    });
+
+  });
+
+</script>

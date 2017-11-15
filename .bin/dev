@@ -1,0 +1,100 @@
+#!/usr/bin/env node
+
+var http = require('http'),
+    HttpManager = require('../index'),
+    keychain = require('phant-keychain-hex'),
+    Meta = require('phant-meta-test'),
+    Phant = require('phant');
+
+var keys = keychain({
+  publicSalt: process.env.PHANT_PUBLIC_SALT || 'public salt',
+  privateSalt: process.env.PHANT_PRIVATE_SALT || 'private salt'
+});
+
+var meta = Meta();
+
+var httpManager = HttpManager({
+  metadata: meta,
+  keychain: keys,
+  validator: Phant.Validator({
+    metadata: meta
+  }),
+  notifiers: [{
+    name: 'Test',
+    expect: function(type) {
+      if(type === 'create') {
+        return { name: 'Name', to: 'Email Address' };
+      }
+    },
+    create: function(options, stream, cb) {
+
+      var expected = this.expect('create');
+
+      for(var key in expected) {
+
+        if(! options[key]) {
+          return cb('Could not send email. Missing: ' + expected[key]);
+        }
+
+      }
+
+      cb(null);
+
+    }
+  }]
+});
+
+var server = http.createServer(function(req, res) {
+
+  httpManager.call(this, req, res);
+
+  if(res.headersSent) {
+    return;
+  }
+
+  if(req.url.match(/^\/output\//)) {
+
+    res.writeHead(200, {
+      'Content-Type': 'application/json'
+    });
+
+    var data = [];
+
+    if(req.url.match(/stats.json$/)) {
+
+      return res.end(JSON.stringify({
+        used: 48 * 1024 * 1024,
+        remaining: 2 * 1024 * 1024,
+        cap: 50 * 1024 * 1024,
+        pageCount: 5
+      }));
+
+    }
+
+    for(var i=0; i < 120; i++) {
+
+      data.push({
+        areallylongfield: 'baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        temp: 98.6,
+        wind: '30mph',
+        rain: '0.1 in',
+        humidity: '30%',
+        high: i,
+        low: 20,
+        timestamp: (new Date()).toISOString()
+      });
+
+    }
+
+    res.end(JSON.stringify(data));
+
+  }
+
+});
+
+server.listen(process.env.PHANT_PORT || 8080);
+console.log('dev server started on port ' + (process.env.PHANT_PORT || 8080));
+
+process.on('exit', function() {
+  server.close();
+});
