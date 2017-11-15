@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+var cluster = require('cluster'),
+    path = require('path'),
+    CPUs = require('os').cpus().length;
+
+cluster.setupMaster({
+  exec: path.join(__dirname, 'serve'),
+  silent: true
+});
+
+for (var i = 0; i < CPUs; i++) {
+  cluster.fork();
+}
+
+cluster.on('online', function(worker) {
+  console.log('phant worker #' + worker.process.pid + ' online');
+});
+
+cluster.on('exit', function(worker, code, signal) {
+  console.log('phant worker #' + worker.process.pid + ' died');
+});
+
