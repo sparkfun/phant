@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+var Meta = require('phant-meta-json'),
+    Storage = require('phant-stream-csv'),
+    Monitor = require('./index');
+
+var meta = Meta({
+    directory: process.env.PHANT_STORAGEDIR || 'tmp'
+});
+
+var monitor = Monitor({
+  metadata: meta,
+  interval: 2 * 1000, // 2 seconds
+  age: 2 * 60 * 60 * 1000 // 2 hours
+});
+
+monitor.run();
