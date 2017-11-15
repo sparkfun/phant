@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+var dotenv = require('dotenv').load(),
+    path = require('path'),
+    fs = require('fs'),
+    execSync = require('execSync'),
+    Storage = require('phant-stream-mongodb'),
+    fromCsv = require('csv-streamify');
+
+var id = process.argv[2];
+
+if(! id) {
+ process.stderr.write('no id provided');
+ process.exit(1);
+}
+
+var storage = Storage({
+  cap: process.env.PHANT_CAP || 50 * 1024 * 1024, // 50mb
+  url: process.env.PHANT_MONGO_URL || 'mongodb://localhost/phant'
+});
+
+var dir = path.join(
+  process.env.PHANT_STORAGEDIR || 'tmp',
+  id.slice(0, 4),
+  id.slice(4)
+);
+
+if(!fs.existsSync(path.join(dir, 'stream.csv'))) {
+   process.stderr.write('not found');
+   process.exit(1);
+}
+
+var headers = 'cat ' + path.join(dir, 'headers.csv') + ' > ' + path.join(dir, 'join.csv');
+var join = 'cat $(ls -v -r ' + path.join(dir, 'stream.csv') + '*) >> ' + path.join(dir, 'join.csv');
+
+try {
+
+  execSync.run(headers);
+  execSync.run(join);
+
+  var read = fs.createReadStream(path.join(dir, 'join.csv')),
+      writer = storage.writeStream(id);
+
+  read.pipe(fromCsv({objectMode: true, columns: true})).pipe(writer);
+
+  writer.on('finish', function() {
+    process.stdout.write('moved');
+    process.exit(0);
+  });
+
+} catch(e) {
+  process.stderr.write('ERROR: ' + e);
+  process.exit(1);
+}
+
