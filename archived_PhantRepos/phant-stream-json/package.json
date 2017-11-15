@@ -1,0 +1,65 @@
+{
+  "name": "phant-stream-json",
+  "version": "2.1.1",
+  "main": "index.js",
+  "description": "json storage for phant data",
+  "homepage": "https://github.com/sparkfun/phant-stream-json",
+  "bugs": "https://github.com/sparkfun/phant-stream-json/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-stream-json"
+  },
+  "license": "GPL-3.0",
+  "engines": {
+    "node": "^0.10.30"
+  },
+  "dependencies": {
+    "mkdirp": "^0.3.5",
+    "log-rotate": "^0.2.7",
+    "JSONStream": "^0.8.0",
+    "rimraf": "^2.2.6"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "load-grunt-tasks": "~0.2.0",
+    "time-grunt": "~0.2.0",
+    "jshint-stylish": "~0.1.3"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "phantConfig": {
+    "name": "JSON",
+    "options": [
+      {
+        "label": "Storage Directory Path",
+        "name": "directory",
+        "default": "phant_streams",
+        "type": "text",
+        "description": "The directory to store phant streams in. It can be a full or relative path."
+      },
+      {
+        "label": "Cap",
+        "name": "cap",
+        "default": "52428800",
+        "type": "number",
+        "description": "Cap the size of the streams to this number in bytes. 0 for no cap."
+      },
+      {
+        "label": "Chunk",
+        "name": "chunk",
+        "default": "262144",
+        "type": "number",
+        "description": "The size in bytes to split the JSON files into."
+      }
+    ]
+  }
+}
