@@ -1,5 +1,18 @@
 # phant [![Build Status](https://secure.travis-ci.org/sparkfun/phant.svg?branch=master)](http://travis-ci.org/sparkfun/phant)
 
+### Phant is No Longer in Operation
+
+Unfortunately Phant, our data-streaming service, is no longer in service. 
+The system has reached capacity and, like a less-adventurous Cassini, has 
+plunged conclusively into a fiery and permanent retirement. There are several 
+other maker-friendly, data-streaming services and/or IoT platforms available 
+as alternatives. The three we recommend are Blynk, ThingSpeak, and Cayenne. 
+You can read our [blog post on the topic](https://www.sparkfun.com/news/2413)
+for an overview and helpful links for each platform. The code in this tutorial 
+will need to be adjusted to work with the other data streams.
+
+---
+
 phant is a modular logging tool developed by [SparkFun Electronics](https://sparkfun.com) for collecting data from
 the [Internet of Things](http://en.wikipedia.org/wiki/Internet_of_Things).  phant is the open source software that powers
 [data.sparkfun.com](http://data.sparkfun.com).
