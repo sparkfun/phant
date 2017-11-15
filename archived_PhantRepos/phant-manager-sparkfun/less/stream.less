@@ -1,0 +1,168 @@
+div.stream {
+  border-bottom:1px solid @gray-lighter;
+  padding:1em 0;
+  p {margin:0;}
+  p span {padding-right:1em;}
+}
+
+.progress-wrapper {
+
+  p.stats {
+    color:@gray;
+    font-size:14px;
+    margin:6px;
+    padding-left:(@grid-gutter-width/2);
+  }
+
+  .progress {
+    height:8px;
+    border-radius:0;
+    box-shadow:none;
+    left:(0px - @grid-gutter-width/2);
+    background-color:white;
+    position: relative;
+    margin:0;
+  }
+
+  .progress-bar {
+    -webkit-box-shadow:none;
+    box-shadow:none;
+  }
+
+}
+
+div.stream-metadata {
+  border-bottom:1px solid @gray-light;
+  padding-bottom:14px;
+  .bg-gradient(white, #f0f0f0);
+
+  .download-buttons {}
+
+  .little-label {
+    .uppercase(400);
+    font-size:10px;
+  }
+
+  h1 {
+    font-size:24px;
+    color:@gray;
+    margin:0 0 12px 0;
+    font-weight:300;
+    span.small {padding-left:12px}
+  }
+
+  p {margin:0; color:@gray;}
+
+  div.formats {
+    .make-md-column(3);
+    .make-sm-column(5);
+    .make-xs-column(12);
+  }
+
+  div.title {
+    .make-md-column(10);
+    .make-sm-column(9);
+    .make-xs-column(12);
+  }
+
+  div.controls {
+
+    .make-md-column(2);
+    .make-sm-column(3);
+    .make-xs-column(12);
+
+    @media (min-width: @screen-sm-min) {
+      a {
+        .pull-right;
+        margin-right:2px;
+      }
+    }
+
+    @media (max-width: @screen-xs-max) {
+      margin: 5px 0 10px 0;
+    }
+
+  }
+
+  div.tags {
+
+    .make-md-column(6);
+    .make-md-column-offset(1);
+    .make-sm-column(6);
+    .make-sm-column-offset(1);
+    .make-xs-column(12);
+
+    @media (min-width: @screen-sm-min) {
+      div {
+        .pull-right;
+      }
+    }
+
+    @media (max-width: @screen-xs-max) {
+      margin: 10px 0 5px 0;
+      div {
+        .little-label {
+          display: none;
+        }
+        line-height: 26px;
+      }
+    }
+
+  }
+
+}
+
+div.stream-data {
+
+  .table th {
+    .text-center;
+    padding: 5px !important;
+    max-width: 100px;
+    word-wrap: break-word;
+  }
+
+  .table td {
+    max-width: 100px;
+    word-wrap: break-word;
+  }
+
+  div {
+    overflow-x: auto;
+  }
+
+}
+
+.form-group.required .control-label:after {
+  content: "*";
+  color: @brand-primary;
+}
+
+.bootstrap-tagsinput {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+}
+
+.has-feedback {
+
+  .taken, .free {
+    display: none;
+  }
+
+  &.has-success {
+    .free {
+      display: block;
+    }
+  }
+
+  &.has-error {
+    .taken {
+      display: block;
+    }
+  }
+
+}
+
+.edit-container {
+  display: none;
+}

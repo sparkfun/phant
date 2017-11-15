@@ -1,0 +1,170 @@
+<div class="container">
+
+  <div class="row hero">
+    <div class="col-md-12">
+      <h1><span>data.sparkfun.com</span><br>a place<br>to push<br>your data.</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="info-home">
+
+      <h3>Why are you building this?</h3>
+
+      <p>
+        We want to bring a dose of reality to the Internet of Things hype.
+        <a href="data.sparkfun.com">data.sparkfun.com</a> is a free, robust
+        service for use with all of your projects. The underlying engine is
+        open source so if you don't want to use our servers you can install
+        <a href="https://github.com/sparkfun/phant">phant</a> on the server
+        of your choice.
+      </p>
+
+      <h3>Wait, this is totally free? What's the catch?</h3>
+
+      <p>
+        Yep. There are limits, but we wanted to give our users a good, free place
+        to store data and give data scientists more fun things to analyze. Our
+        hope is that you buy a SparkFun widget to connect your next beehive.
+      </p>
+
+      <h3>How do I use it?</h3>
+
+      <p>
+        We thought data storage should be as easy as string concatenation. First,
+        create a stream and you'll receive a public url and a private key. Then,
+        using the hardware of your choice (Ethernet shield, RasPi, BBB, Electric Imp,
+        WiFly) simply create a string with the data you want to post. Here's a simple example:
+      </p>
+
+      <p class="truncate">
+        <a href="https://data.sparkfun.com/input/Jxyjr7DmxwTD5dG1D1Kv?private_key=gzgnB4VazkIg7GN1g1qA&amp;brewTemp=33.4">
+          https://data.sparkfun.com/input/Jxyjr7DmxwTD5dG1D1Kv?private_key=gzgnB4VazkIg7GN1g1qA&amp;brewTemp=33.4
+        </a>
+      </p>
+
+      <p>
+        Go ahead and try it! Paste
+        <a href="https://data.sparkfun.com/input/Jxyjr7DmxwTD5dG1D1Kv?private_key=gzgnB4VazkIg7GN1g1qA&amp;brewTemp=33.4">
+          the string above
+        </a>
+        into a browser window and hit return. You should see a confirmation message. Then view the results on the
+        <a href="https://data.sparkfun.com/streams/Jxyjr7DmxwTD5dG1D1Kv">the public stream</a>. Congrats!
+        You just added some data to the internet.
+      </p>
+
+      <h3>What types of projects would benefit from this service?</h3>
+
+      <p>
+        Almost anything. Your weather station in the backyard. A classroom
+        of kids working on science experiments. A community concerned with
+        pollution and crowdsourcing data collection. The weight of your pug's
+        food dish. You get the idea. If your project can send an http request,
+        you can push data out to our servers.
+      </p>
+
+      <h3>How much data can I push?</h3>
+
+      <p>
+        Each stream has a maximum of 50mb. After you hit the limit, the oldest data will be erased.
+        (These limitations can be removed if installed on your own server). Logging is limited to
+        100 pushes in a 15 minute window. This allows you to push data in bursts, or spread them
+        out over the 15 minute window.
+      </p>
+
+      <h3>Can I publish a stream anonymously?</h3>
+
+      <p>
+        Yes. But all streams are public and can be accessed by anyone with the url.
+      </p>
+
+      <h3>How can I give feedback about this project?</h3>
+
+      <p>
+        Send us an email: <a href="mailto:data@sparkfun.com">data@sparkfun.com</a>
+      </p>
+
+      <h3>Is my data safe?</h3>
+
+      <p>
+        We are still hacking on the core functionality, so there is a slight possibility of
+        data loss. After our official launch, we will have clear parameters for how long the data
+        will remain on our servers.
+      </p>
+
+      <h3>Gimme the code!</h3>
+
+      <p>
+        The code and documentation can be found on
+        <a href="https://github.com/sparkfun/phant">GitHub</a>. Please let us know
+        if you run into any <a href="https://github.com/sparkfun/phant/issues">issues</a>.
+      </p>
+
+      <p>
+        Want to play around?  If you’re familiar with
+        <a href="http://nodejs.org">Node.js</a>, try:
+      </p>
+
+      <pre>$ npm install -g phant</pre>
+
+      <p>Start the server:</p>
+
+      <pre>$ phant</pre>
+
+      <p>Connect to the telnet manager:</p>
+
+      <pre>$ telnet localhost 8081</pre>
+
+    </div>
+
+    <div class="info-blocks">
+
+      <div class="blocks" data-spy="affix" data-offset-top="406" data-offset-bottom="30">
+
+        <div class=" block1">
+          <a href="/streams/make">Create</a>
+          <p>Create a free data stream immediately at data.sparkfun.com</p>
+        </div>
+
+        <div class="block2">
+          <a href="/streams/">Explore</a>
+          <p>Explore all of the public data streams on data.sparkfun.com</p>
+        </div>
+
+        <div class="block3">
+          <a href="http://phant.io/docs">docs</a>
+          <p>Learn how to create data streams and post data to them.</p>
+        </div>
+
+        <div class="block4">
+          <a href="/config">Deploy</a>
+          <p>Configure and deploy your own copy of the phant server.</p>
+        </div>
+
+        <div class="block5">
+          <a href="https://github.com/sparkfun/phant/issues">Bugs</a>
+          <p>Help improve the service by reporting any issues you encounter.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+
+    var setWidth = function() {
+      var width = $('div.info-blocks').get(0).getBoundingClientRect().width;
+      $('div.blocks').css('width', width);
+    };
+
+    setWidth();
+    $(window).resize(setWidth);
+
+  });
+</script>

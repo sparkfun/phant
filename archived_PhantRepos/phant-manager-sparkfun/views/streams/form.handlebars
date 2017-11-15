@@ -1,0 +1,102 @@
+<div class="row">
+
+  <div class="col-md-6 col-md-offset-3">
+
+    {{#unless edit}}
+      <h1>Create a Data Stream</h1>
+      <p>If you need more info about creating a stream, check out the <a href="http://phant.io/docs/management/create">stream creation documentation</a>.
+      <form role="form" action="/streams" method="POST" novalidate>
+    {{else}}
+
+      <div class="manage-controls text-center">
+        <h1>Stream Management</h1>
+        <p>Please choose an option below:</p>
+        <button class="btn btn-success" id="edit_stream">Edit</button>
+        <button class="btn btn-info" id="clear_stream">Clear</button>
+        <button class="btn btn-danger" id="delete_stream">Delete</button>
+      </div>
+
+      <div class="edit-container">
+      <h1>Edit Stream</h1>
+      <form data-public="{{publicKey}}" data-private="{{privateKey}}" role="form" action="/streams/{{publicKey}}/update/{{privateKey}}" method="POST" novalidate>
+    {{/unless}}
+
+      <div class="form-group required">
+        <label class="control-label">Title</label>
+        <input type="text" name="title" class="form-control" value="{{post.title}}" placeholder="NIST Weather" required>
+      </div>
+
+      <div class="form-group required">
+        <label class="control-label">Description</label>
+        <textarea name="description" class="form-control" rows="6" placeholder="A SEN-08257 humidity and temp sensor located at NIST in Boulder, CO" required>{{post.description}}</textarea>
+      </div>
+
+      <div class="form-group required">
+
+        <label class="control-label">Show in Public Stream List?</label>
+
+        <div>
+
+          <label class="radio-inline">
+            <input type="radio" name="hidden" value="0" {{#isHidden}}{{else}}checked{{/isHidden}}> Visible
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" name="hidden" value="1" {{#isHidden}}checked{{/isHidden}}> Hidden
+          </label>
+
+        </div>
+
+      </div>
+
+      <div class="form-group required">
+        <label class="control-label">Fields</label>
+        <input type="text" name="fields" value="{{post.fields}}" class="form-control" placeholder="humidity, temp" required>
+        <input type="hidden" name="field_check" value="{{post.fields}}">
+        <div id="field_warning" class="alert alert-danger" style="display:none;" role="alert"><strong>Warning:</strong> If you change your field definitions, all of your existing stream data will be cleared.</div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="control-label">Stream Alias</label>
+        <input type="text" name="alias" class="form-control" value="{{post.alias}}" placeholder="nist_weather">
+        <span class="glyphicon free glyphicon-ok form-control-feedback"></span>
+        <span class="glyphicon taken glyphicon-remove form-control-feedback"></span>
+        <p class="help-block taken">This alias is in use by another stream.</p>
+        <p class="help-block">
+          This will be used as an alias for your stream when sharing.<br>
+          <em>e.g. {{url.protocol}}://{{url.host}}/<span class="alias_example">nist_weather</span></em>
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Tags</label>
+        <input type="text" name="tags" value="{{post.tags}}" class="form-control" placeholder="nist, weather">
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Location</label>
+        <input type="text" class="form-control" name="location_long" value="{{post.location_long}}" placeholder="Boulder, CO">
+        <input type="hidden" name="location_city" value="{{post.location_city}}">
+        <input type="hidden" name="location_state" value="{{post.location_state}}">
+        <input type="hidden" name="location_country" value="{{post.location_country}}">
+        <input type="hidden" name="location_lat" value="{{post.location_lat}}">
+        <input type="hidden" name="location_lng" value="{{post.location_lng}}">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+
+    </form>
+
+    {{#if edit}}
+    </div>
+    {{/if}}
+
+  </div>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('form').streamForm();
+  });
+</script>

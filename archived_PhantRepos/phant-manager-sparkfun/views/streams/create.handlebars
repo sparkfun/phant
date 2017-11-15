@@ -1,0 +1,71 @@
+<div class="row">
+
+  <div class="content">
+
+    <h1>New Stream: {{stream.title}}</h1>
+    <p class="lead">{{{stream.description}}}</p>
+    <p><strong>Fields:</strong> {{> renderFields stream}}</p>
+    <p><strong>Tags:</strong> {{> renderTags stream}}</p>
+    <hr>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1">
+
+    <h4>Public URL</h4>
+    <a href="/streams/{{publicKey}}" target="_blank"><pre>{{url.protocol}}://{{url.host}}/streams/{{publicKey}}</pre></a>
+
+    <h4>Public Key</h4>
+    <pre>{{publicKey}}</pre>
+
+    <h4>Private Key</h4>
+    <pre>{{privateKey}}</pre>
+    <p>Keep this key secret, and in a safe place.&nbsp; <em>You will not be able to retrieve it.</em></p>
+
+    <h4>Delete Key</h4>
+    <pre>{{deleteKey}}</pre>
+    <p>This key can only be used once.&nbsp; Keep this key secret, and in a safe place.&nbsp; <em>You will not be able to retrieve it.</em></p>
+
+    <h4>Download Your Keys</h4>
+    <a href="/streams/{{publicKey}}/keys/{{privateKey}}">Download your keys as a JSON file</a>.
+    <p>Keep this file secret and in a safe place.</p>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="content">
+
+    <h1>Logging using query string parameters</h1>
+
+    <p>Format:</p>
+    <pre>{{url.protocol}}://{{url.host}}/input/[publicKey]?private_key=[privateKey]&{{sampleQueryFormat stream.fields}}</pre>
+
+    <p>Example:</p>
+    <a href="/input/{{publicKey}}?private_key={{privateKey}}&{{sampleQueryString stream.fields}}" target="_blank">
+      <pre>{{url.protocol}}://{{url.host}}/input/{{publicKey}}?private_key={{privateKey}}&{{sampleQueryString stream.fields}}</pre>
+    </a>
+
+    <p>
+      If you would like to learn more about how to use data.sparkfun.com, please visit 
+      <a href="http://phant.io">the documentation</a> for more info.
+    </p>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1">
+
+    {{> renderNotifiers}}
+
+  </div>
+
+</div>

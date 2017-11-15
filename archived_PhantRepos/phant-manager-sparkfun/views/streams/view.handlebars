@@ -1,0 +1,80 @@
+<div class="stream" data-key="{{publicKey}}">
+
+  <div class="row stream-metadata">
+
+    <div class="col-md-12">
+
+      <div class="row">
+
+        <div class="title">
+          <h1>
+            {{stream.title}}
+            <span class="small">{{stream.description}}</span>
+          </h1>
+        </div>
+
+        <div class="controls">
+          <a class="btn btn-xs btn-success" href="https://analog.io/sparkfun/{{publicKey}}">Export to Analog.io</a>
+          <a class="btn btn-xs btn-success" href="#" id="edit_stream" data-public="{{publicKey}}">Manage</a>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="formats">
+          <div class="download-buttons btn-group btn-group-xs">
+            <a class="btn btn-xs btn-default" href="/output/{{publicKey}}.json">JSON</a>
+            <a class="btn btn-xs btn-default" href="/output/{{publicKey}}.csv">CSV</a>
+            <a class="btn btn-xs btn-default" href="/output/{{publicKey}}.sql">MySQL</a>
+            <a class="btn btn-xs btn-default" href="/output/{{publicKey}}.psql">PostgreSQL</a>
+            <a class="btn btn-xs btn-default" href="/output/{{publicKey}}.atom">Atom</a>
+          </div>
+        </div>
+
+        <div class="tags">
+          <div>
+            <span class="little-label">Tags</span>
+            {{> renderTags stream}}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="progress-wrapper"></div>
+  </div>
+
+  <div class="row stream-data">
+
+    <div class="col-md-12">
+
+      <table class="table table-striped text-center table-hover">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+
+      <ul class="pager" style="display: none;">
+        <li class="previous disabled" data-page="1"><a href="#">&larr; Newer</a></li>
+        <li class="next" data-page="2"><a href="#">Older &rarr;</a></li>
+      </ul>
+
+    </div>
+
+  </div>
+
+  <script src="/partials/stream/header.hbs" type="text/x-handlebars-template"></script>
+  <script src="/partials/stream/row.hbs" type="text/x-handlebars-template"></script>
+  <script src="/partials/stream/stats.hbs" type="text/x-handlebars-template"></script>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('div.stream').stream();
+  });
+</script>

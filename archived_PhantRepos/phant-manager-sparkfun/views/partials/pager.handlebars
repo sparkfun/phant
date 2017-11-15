@@ -1,0 +1,4 @@
+<ul class="pager">
+  <li class="previous {{#hasPreviousPage}}{{else}}disabled{{/hasPreviousPage}}"><a href="{{url.pathname}}{{#hasPreviousPage}}?page={{previousPage}}{{/hasPreviousPage}}">&larr; Newer</a></li>
+  <li class="next {{#hasNextPage}}{{else}}disabled{{/hasNextPage}}"><a href="{{url.pathname}}{{#hasNextPage}}?page={{nextPage}}{{/hasNextPage}}">Older &rarr;</a></li>
+</ul>
