@@ -1,0 +1,13 @@
+{{#if messages}}
+
+  {{#each messages}}
+
+    <div class="alert alert-{{@key}}">
+      {{#each this}}
+        <p>{{this}}</p>
+      {{/each}}
+    </div>
+
+  {{/each}}
+
+{{/if}}
