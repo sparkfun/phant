@@ -1,0 +1,51 @@
+{
+  "name": "phant-meta-nedb",
+  "version": "3.1.1",
+  "main": "lib/phant-meta-nedb.js",
+  "description": "sqlite metadata storage for phant",
+  "homepage": "https://github.com/sparkfun/phant-meta-nedb",
+  "bugs": "https://github.com/sparkfun/phant-meta-nedb/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-meta-nedb"
+  },
+  "license": "GPL-3.0",
+  "engines": {
+    "node": "^0.10.30"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "lodash": "^2.4.1",
+    "nedb": "^0.10.5",
+    "node-uuid": "^1.4.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "load-grunt-tasks": "~0.2.0",
+    "time-grunt": "~0.2.0",
+    "jshint-stylish": "~0.1.3"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "phantConfig": {
+    "name": "NeDB",
+    "options": [
+      {
+        "label": "Storage Directory Path",
+        "name": "directory",
+        "default": "phant_streams",
+        "type": "text",
+        "description": "The directory to store the db file in."
+      }
+    ]
+  }
+}
