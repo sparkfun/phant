@@ -1,0 +1,58 @@
+{
+  "name": "phant-throttler-memcache",
+  "version": "1.1.0",
+  "main": "lib/phant-throttler-memcache.js",
+  "description": "Memcache based rate limiting module for phant",
+  "homepage": "https://github.com/sparkfun/phant-throttler-memcache",
+  "bugs": "https://github.com/sparkfun/phant-throttler-memcache/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-throttler-memcache"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "memcached": "^0.2.8"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "load-grunt-tasks": "~0.2.0",
+    "time-grunt": "~0.2.0",
+    "jshint-stylish": "~0.1.3"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "phantConfig": {
+    "name": "Memcache",
+    "options": [
+      {
+        "label": "Host",
+        "name": "host",
+        "default": "localhost:11211",
+        "type": "text",
+        "description": "IP address or hostname and port separated by a colon (host:port)"
+      },
+      {
+        "label": "Limit",
+        "name": "limit",
+        "default": "100",
+        "type": "number",
+        "description": "Number of requests allowed in window"
+      },
+      {
+        "label": "Window",
+        "name": "window",
+        "default": "900",
+        "type": "number",
+        "description": "Window (in seconds)"
+      }
+    ]
+  }
+}
