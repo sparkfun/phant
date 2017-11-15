@@ -1,0 +1,68 @@
+{
+  "name": "phant-keychain-hex",
+  "version": "1.0.0",
+  "main": "lib/phant-keychain-hex.js",
+  "description": "hex key encryption for phant",
+  "homepage": "https://github.com/sparkfun/phant-keychain-hex",
+  "bugs": "https://github.com/sparkfun/phant-keychain-hex/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-keychain-hex"
+  },
+  "dependencies": {
+    "hashids": "^0.3.3"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "load-grunt-tasks": "~0.2.0",
+    "time-grunt": "~0.2.0",
+    "jshint-stylish": "~0.1.3"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "license": "GPL-3.0",
+  "engines": {
+    "node": "^0.10.29"
+  },
+  "phantConfig": {
+    "name": "Hex Based Keychain",
+    "options": [
+      {
+        "label": "Key Length",
+        "name": "keyLength",
+        "default": "6",
+        "type": "number",
+        "description": "The minimum length for generated keys."
+      },
+      {
+        "label": "Public Salt",
+        "name": "publicSalt",
+        "default": "Change this public salt",
+        "type": "text",
+        "description": "The salt used when generating the public key hash. Add your own random string."
+      },
+      {
+        "label": "Private Salt",
+        "name": "privateSalt",
+        "default": "Change this private salt",
+        "type": "text",
+        "description": "The salt used when generating the private key hash. Add your own random string."
+      },
+      {
+        "label": "Delete Salt",
+        "name": "deleteSalt",
+        "default": "Change this delete salt",
+        "type": "text",
+        "description": "The salt used when generating the delete key hash. Add your own random string."
+      }
+    ]
+  }
+}
