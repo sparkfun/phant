@@ -1,0 +1,57 @@
+{
+  "name": "phant-input-udp",
+  "version": "1.0.1",
+  "main": "lib/phant-input-udp.js",
+  "description": "udp input for phant",
+  "homepage": "https://github.com/sparkfun/phant-input-udp",
+  "bugs": "https://github.com/sparkfun/phant-input-udp/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-input-udp"
+  },
+  "license": "GPL-3.0",
+  "keywords": [
+    "data",
+    "phant",
+    "IoT",
+    "UDP"
+  ],
+  "engines": {
+    "node": "^0.10.30"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.0",
+    "time-grunt": "^0.2.10",
+    "load-grunt-tasks": "^0.4.0",
+    "jshint-stylish": "^0.1.5",
+    "grunt-jsbeautifier": "^0.2.7"
+  },
+  "phantConfig": {
+    "name": "UDP",
+    "options": [
+      {
+        "label": "Port",
+        "name": "port",
+        "default": "8002",
+        "type": "number",
+        "description": "The UDP port to listen on."
+      },
+      {
+        "label": "Keychain",
+        "name": "keychain",
+        "default": "phant-keychain-hex",
+        "type": "select",
+        "require": "keychain",
+        "description": "The phant keychain module to use"
+      }
+    ]
+  }
+}
