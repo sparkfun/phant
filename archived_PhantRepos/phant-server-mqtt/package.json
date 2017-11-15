@@ -1,0 +1,40 @@
+{
+  "name": "phant-server-mqtt",
+  "version": "2.0.0",
+  "main": "lib/phant-server-mqtt.js",
+  "description": "mqtt broker shared by phant-input-mqtt & phant-output-mqtt",
+  "homepage": "https://github.com/sparkfun/phant-server-mqtt",
+  "bugs": "https://github.com/sparkfun/phant-server-mqtt/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-server-mqtt"
+  },
+  "license": "GPL-3.0",
+  "keywords": [
+    "data",
+    "phant",
+    "IoT",
+    "MQTT"
+  ],
+  "engines": {
+    "node": "^0.10.30"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.0",
+    "time-grunt": "^0.2.10",
+    "load-grunt-tasks": "^0.4.0",
+    "jshint-stylish": "^0.1.5",
+    "grunt-jsbeautifier": "^0.2.7"
+  },
+  "dependencies": {
+    "mosca": "^0.24.0"
+  }
+}
