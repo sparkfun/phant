@@ -1,0 +1,59 @@
+{
+  "name": "phant-output-statsd",
+  "version": "0.3.1",
+  "main": "lib/phant-output-statsd.js",
+  "description": "output to collect phant stream stats using statsd",
+  "homepage": "https://github.com/sparkfun/phant-output-statsd",
+  "bugs": "https://github.com/sparkfun/phant-output-statsd/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-output-statsd"
+  },
+  "license": "GPL-3.0",
+  "keywords": [
+    "data",
+    "phant",
+    "statsd"
+  ],
+  "dependencies": {
+    "lynx": "^0.1.1"
+  },
+  "engines": {
+    "node": "^0.10.30"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.0",
+    "time-grunt": "^0.2.10",
+    "load-grunt-tasks": "^0.4.0",
+    "jshint-stylish": "^0.1.5",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt-jsbeautifier": "^0.2.7"
+  },
+  "phantConfig": {
+    "name": "Statsd",
+    "options": [
+      {
+        "label": "Host",
+        "name": "host",
+        "default": "localhost",
+        "type": "text",
+        "description": "IP or hostname of statsd server."
+      },
+      {
+        "label": "Port",
+        "name": "port",
+        "default": "8125",
+        "type": "number",
+        "description": "The port statsd is listening on."
+      }
+    ]
+  }
+}
