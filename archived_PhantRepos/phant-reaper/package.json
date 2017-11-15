@@ -1,0 +1,33 @@
+{
+  "name": "phant-reaper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "clears unused phant streams",
+  "homepage": "https://github.com/sparkfun/phant-reaper",
+  "bugs": "https://github.com/sparkfun/phant-reaper/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-reaper"
+  },
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "load-grunt-tasks": "~0.2.0",
+    "time-grunt": "~0.2.0",
+    "jshint-stylish": "~0.1.3"
+  },
+  "engines": {
+    "node": "^0.10.29"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
