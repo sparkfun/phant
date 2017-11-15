@@ -1,0 +1,39 @@
+{
+  "name": "phant-output-websocket",
+  "version": "2.3.2",
+  "main": "lib/phant-output-websocket.js",
+  "description": "websocket output for phant",
+  "homepage": "https://github.com/sparkfun/phant-output-websocket",
+  "bugs": "https://github.com/sparkfun/phant-output-websocket/issues",
+  "author": {
+    "name": "Todd Treece",
+    "email": "todd@uniontownlabs.org",
+    "url": "http://uniontownlabs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sparkfun/phant-output-websocket"
+  },
+  "license": "GPL-3.0",
+  "keywords": [
+    "data",
+    "phant",
+    "websocket"
+  ],
+  "dependencies": {
+    "socket.io": "^1.0.6"
+  },
+  "engines": {
+    "node": "^0.10.30"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.0",
+    "time-grunt": "^0.2.10",
+    "load-grunt-tasks": "^0.4.0",
+    "jshint-stylish": "^0.1.5",
+    "grunt-jsbeautifier": "^0.2.7"
+  }
+}
