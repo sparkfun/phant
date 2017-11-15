@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <div class="logo"><img src="/img/phant.svg"></div>
+
+  <h1>News</h1>
+
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <div class="post-excerpt">{{ post.excerpt }}</div>
+        <a class="more" href="{{ post.url | prepend: site.baseurl }}"> Read More &rarr;</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">SUBSCRIBE <a href="{{ "/feed.xml" | prepend: site.baseurl }}">VIA RSS</a></p>
+
+</div>

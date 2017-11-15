@@ -1,0 +1,5 @@
+_site
+*.swp
+*.swo
+Gemfile.lock
+.DS_Store

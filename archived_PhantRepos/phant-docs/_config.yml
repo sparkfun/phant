@@ -1,0 +1,15 @@
+# Site settings
+title: phant.io
+email: data@sparkfun.com
+github: sparkfun/phant
+twitter: phant_io
+description: "data collection for the internet of things. developed by sparkfun electronics."
+baseurl: ""
+url: "http://phant.io"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+kramdown:
+  auto_ids: true
