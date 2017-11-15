@@ -1,0 +1,9 @@
+{{#if tags.length}}
+
+  {{#each tags}}
+    <a href="/streams/tag/{{this}}" class="tag">
+      <span>{{this}}</span>
+    </a>
+  {{/each}}
+
+{{/if}}

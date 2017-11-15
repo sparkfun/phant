@@ -1,0 +1,37 @@
+h3 {
+  margin-bottom:0;
+  margin-top:@font-size-base*2;
+  font-weight:700;
+  color:@black;
+}
+
+.content {
+  .make-sm-column(10);
+  .make-sm-column-offset(1);
+  .make-md-column(10);
+  .make-md-column-offset(1);
+}
+
+a.tag {
+
+  span {
+    .label;
+    .label-info;
+    background:white;
+    color:@gray;
+    font-weight:400;
+    border:2px solid @gray-lighter;
+  }
+
+  span:hover {
+    background:@red;
+    color:white;
+    border:2px solid @red-dark;
+  }
+
+}
+
+a.tag:hover {
+  text-decoration:none;
+}
+

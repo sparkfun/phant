@@ -1,0 +1,223 @@
+@input-color: #112F41;
+@output-color: #068587;
+@meta-color: #4FB99F;
+@manager-color: #F2B134;
+@keychain-color: #ED553B;
+@stream-color: #B20000;
+
+#config {
+
+  margin-bottom: 50px;
+
+  #message {
+    .text-center;
+    font-size: 36px;
+  }
+
+  .button-container {
+    .text-center;
+    .btn-group {
+      margin-bottom: 10px;
+    }
+  }
+
+  .label-input {
+    .label-variant(@input-color);
+  }
+  .label-output {
+    .label-variant(@output-color);
+  }
+
+  .label-meta {
+    .label-variant(@meta-color);
+  }
+
+  .label-stream {
+    .label-variant(@stream-color);
+  }
+
+  .label-manager {
+    .label-variant(@manager-color);
+  }
+
+  .label-keychain {
+    .label-variant(@keychain-color);
+  }
+
+  .input {
+    .btn {
+      .button-variant(#fff; @input-color; @input-color);
+    }
+    .glyphicon {
+      .glyphicon-circle-arrow-right;
+    }
+  }
+
+  .output {
+    .btn {
+      .button-variant(#fff; @output-color; @output-color);
+    }
+    .glyphicon {
+      .glyphicon-circle-arrow-left;
+    }
+  }
+
+  .stream {
+    border-bottom: none;
+    .btn {
+      .button-variant(#fff; @stream-color; @stream-color);
+    }
+    .glyphicon {
+      .glyphicon-save;
+    }
+  }
+
+  .keychain {
+    .btn {
+      .button-variant(#fff; @keychain-color; @keychain-color);
+    }
+    .glyphicon {
+      .glyphicon-lock;
+    }
+  }
+
+  .meta {
+    .btn {
+      .button-variant(#fff; @meta-color; @meta-color);
+    }
+    .glyphicon {
+      .glyphicon-list;
+    }
+  }
+
+  .manager {
+    .btn {
+      .button-variant(#fff; @manager-color; @manager-color);
+    }
+    .glyphicon {
+      .glyphicon-cog;
+    }
+  }
+
+  .inputs, .outputs, .managers, .metas, .keychains {
+    margin: 10px 0;
+  }
+
+  .inputs {
+    .panel {
+      .glyphicon {.glyphicon-circle-arrow-right;}
+      .panel-variant(@input-color; #fff; @input-color; @input-color);
+      .close {
+        color: #fff;
+        opacity: 0.6;
+        text-shadow: 0 1px 0 #222;
+      }
+    }
+  }
+
+  .outputs {
+    .panel {
+      .glyphicon {.glyphicon-circle-arrow-left;}
+      .panel-variant(@output-color; #fff; @output-color; @output-color);
+      .close {
+        color: #fff;
+        opacity: 0.6;
+        text-shadow: 0 1px 0 #222;
+      }
+    }
+  }
+
+  .streams {
+    .panel {
+      .glyphicon {.glyphicon-list;}
+      .panel-variant(@meta-color; #fff; @stream-color; @stream-color);
+      .close {
+        color: #fff;
+        opacity: 0.6;
+        text-shadow: 0 1px 0 #222;
+      }
+    }
+  }
+
+  .metas {
+    .panel {
+      .glyphicon {.glyphicon-list;}
+      .panel-variant(@meta-color; #fff; @meta-color; @meta-color);
+      .close {
+        color: #fff;
+        opacity: 0.6;
+        text-shadow: 0 1px 0 #222;
+      }
+    }
+  }
+
+  .keychains {
+    .panel {
+      .glyphicon {.glyphicon-lock;}
+      .panel-variant(@keychain-color; #fff; @keychain-color; @keychain-color);
+      .close {
+        color: #fff;
+        opacity: 0.6;
+        text-shadow: 0 1px 0 #222;
+      }
+    }
+  }
+
+  .managers {
+    .panel {
+      .glyphicon {.glyphicon-cog;}
+      .panel-variant(@manager-color; #fff; @manager-color; @manager-color);
+      .close {
+        color: #fff;
+        opacity: 0.6;
+        text-shadow: 0 1px 0 #222;
+      }
+    }
+  }
+
+}
+
+.spinner {
+  margin: 100px auto 0;
+  width: 70px;
+  text-align: center;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #333;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

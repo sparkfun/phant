@@ -1,0 +1,103 @@
+<div class="row">
+
+  <div class="col-md-8 col-md-offset-2">
+
+    <h1>Phant Server Configurator</h1>
+
+    <p>
+      Welcome to the phant server config utility. You can use this utility to set up your own custom configuration for download. The npm publishing option is offered as a convienence and this tool is
+      highly experimental.
+    </p>
+
+    <hr>
+
+    <div id="config" data-packages="{{packages}}">
+
+      <div class="button-container">
+
+        <div class="btn-group input">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+           <span class="glyphicon"></span> &nbsp;Add Input <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+          </ul>
+        </div>
+
+        <div class="btn-group output">
+          <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+           <span class="glyphicon"></span> &nbsp;Add Output <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+          </ul>
+        </div>
+
+        <div class="btn-group stream">
+          <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+           <span class="glyphicon"></span> &nbsp;Add Storage <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+          </ul>
+        </div>
+
+        <div class="btn-group meta">
+          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+           <span class="glyphicon"></span> &nbsp;Add Metadata <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+          </ul>
+        </div>
+
+        <div class="btn-group keychain">
+          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+           <span class="glyphicon"></span> &nbsp;Add Keychain <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+          </ul>
+        </div>
+
+        <div class="btn-group manager">
+          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+           <span class="glyphicon"></span> &nbsp;Add Manager <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="messages">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+        <div id="message"></div>
+      </div>
+      <div class="inputs modules"></div>
+      <div class="outputs modules"></div>
+      <div class="streams modules"></div>
+      <div class="metas modules"></div>
+      <div class="keychains modules"></div>
+      <div class="managers modules"></div>
+
+      <div class="controls">
+        <button class="btn btn-primary validate" data-action="download">Download package</button>
+      </div>
+
+      <script src="/partials/config/label.hbs" type="text/x-handlebars-template"></script>
+      <script src="/partials/config/option.hbs" type="text/x-handlebars-template"></script>
+      <script src="/partials/config/input.hbs" type="text/x-handlebars-template"></script>
+      <script src="/partials/config/container.hbs" type="text/x-handlebars-template"></script>
+      <script src="/partials/config/download.hbs" type="text/x-handlebars-template"></script>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#config').configurator();
+  });
+</script>

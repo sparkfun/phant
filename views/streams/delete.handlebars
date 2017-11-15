@@ -1,0 +1,50 @@
+<div class="row">
+
+  <div class="col-md-4 col-md-offset-4">
+
+    <h1>Delete Your Stream</h1>
+
+    <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>Warning!</strong> This will result in the permanent deletion of your data.
+    </div>
+
+    <form id="delete">
+
+      <div class="form-group">
+        <label>Public Key</label>
+        <input type="text" name="public" class="form-control" >
+      </div>
+
+      <div class="form-group">
+        <label>Delete Key</label>
+        <input type="text" name="delete" class="form-control" >
+      </div>
+
+      <button type="submit" class="btn btn-danger">Delete!</button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script>
+
+  $(document).ready(function() {
+
+    $('#delete').submit(function(e) {
+
+      //stop standard submits
+      e.preventDefault();
+
+      var pub = $('[name=public]').val(),
+          del = $('[name=delete]').val();
+
+      window.location = '/streams/' + pub + '/delete/' + del;
+
+    });
+
+  });
+
+</script>

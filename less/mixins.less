@@ -1,0 +1,29 @@
+.uppercase (@upper-font-weight:700) {
+  text-transform:uppercase;
+  font-weight:@upper-font-weight;
+  letter-spacing:1px;
+}
+
+.right-arrow(@arrow-color, @arrow-width) {
+  left: 100%;
+  top: 0;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-left-color: @arrow-color;
+  border-width: @arrow-width;
+  margin-top: @arrow-width;
+}
+
+.bg-gradient (@startColor: #eee, @endColor: white) {
+  background-color: @startColor;
+  background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+  background: -webkit-linear-gradient(top, @startColor, @endColor);
+  background: -moz-linear-gradient(top, @startColor, @endColor);
+  background: -ms-linear-gradient(top, @startColor, @endColor);
+  background: -o-linear-gradient(top, @startColor, @endColor);
+}
+

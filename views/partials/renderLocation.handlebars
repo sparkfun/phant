@@ -1,0 +1,21 @@
+<span class="location">
+
+  {{#if location.city}}
+    <a href="/streams/city/{{location.city}}">
+      {{location.city}}
+    </a>,
+  {{/if}}
+
+  {{#if location.state}}
+    <a href="/streams/state/{{location.state}}">
+      {{location.state}}
+    </a>,
+  {{/if}}
+
+  {{#if location.country}}
+    <a href="/streams/country/{{location.country}}">
+      {{location.country}}
+    </a>
+  {{/if}}
+
+</span>
