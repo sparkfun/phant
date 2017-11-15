@@ -1,0 +1,7 @@
+{
+"name": "SparkFunPhant",
+"author": "Jim Lindblom <jim@sparkfun.com>",
+"license": "GPL v3",
+"version": "1.2.0",
+"description": "A simple library for the Particle Photon that generates Phant posts, gets, deletes and more."
+}
