@@ -84,6 +84,17 @@ Type 'help' for a list of available commands
 phant>
 ```
 
+#### Local using Docker / docker-compose
+
+```bash
+git clone https://github.com/idcrook/phant.git
+cd phant
+mkdir ./phant_streams
+docker-compose build
+docker-compose up     # or as service: 'docker-compose start'
+open http://localhost:8888
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 

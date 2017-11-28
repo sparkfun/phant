@@ -1,0 +1,15 @@
+phant_server:
+  restart: always
+  build: .
+  container_name: phant
+  working_dir: /usr/src/app  
+  command: ./.bin/serve
+  ports:
+    - "8888:8888"
+    - "8889:8889"
+  environment:
+    - PHANT_PORT=8888
+    - PHANT_TELNET_PORT=8889
+  volumes:
+    - ./phant_streams:/usr/src/app/phant_streams/
+
